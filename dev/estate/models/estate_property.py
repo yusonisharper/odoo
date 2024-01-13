@@ -3,7 +3,7 @@ from odoo import fields, models
 class estate_property(models.Model):
     _name = "estate.property"
     _description = "estate description"
-    _order = "sequence"
+    _order = "id desc"
 
     name = fields.Char('Title', required=True, translate=True)
     description = fields.Text('description')
@@ -20,6 +20,3 @@ class estate_property(models.Model):
     garden_orientation = fields.Selection(string='Garden Orientation',
                                           selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West'), ])
 
-    #_sql_constraints = [
-    #    ('check_number_of_months', 'CHECK(number_of_months >= 0)', 'The number of month can\'t be negative.'),
-    #]
