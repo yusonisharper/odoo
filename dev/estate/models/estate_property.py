@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from dateutil import relativedelta
 
 class estate_property(models.Model):
@@ -51,3 +51,6 @@ class estate_property(models.Model):
         else:
             self.garden_area = 0
             self.garden_orientation = None
+        return {'warning': {
+            'title': _("Warning"),
+            'message': ('You changed the garden option.')}}
