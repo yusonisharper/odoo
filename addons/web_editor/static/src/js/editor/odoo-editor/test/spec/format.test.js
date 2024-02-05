@@ -961,7 +961,7 @@ describe('Format', () => {
                 // todo: It would be better to remove the zws entirely so that
                 // the P could have the "/" hint but that behavior might be
                 // complex with the current implementation.
-                contentAfterEdit: `<p>${strong(`[]\u200B`, 'first')}</p>`,
+                contentAfterEdit: `<p>${span(`[]\u200B`, 'first')}</p>`,
             });
         });
     });
@@ -1197,6 +1197,13 @@ describe('setTagName', () => {
                 stepFunction: editor => editor.execCommand('setTag', 'pre'),
                 // The custom table selection is removed in cleanForSave and the selection is collapsed.
                 contentAfter: '<table><tbody><tr><td><pre>[]a</pre></td><td><pre>b</pre></td><td><pre>c</pre></td></tr></tbody></table>',
+            });
+        });
+        it('should turn a paragraph into pre preserving the cursor position', async () => {
+            await testEditor(BasicEditor, {
+                contentBefore: '<p>abcd<br>[]<br></p>',
+                stepFunction: editor => editor.execCommand('setTag', 'pre'),
+                contentAfter: '<pre>abcd<br>[]<br></pre>',
             });
         });
     });

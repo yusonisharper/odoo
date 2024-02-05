@@ -93,7 +93,8 @@ class ThreadController(http.Controller):
                 'last_used': datetime.now(),
                 'ids': canned_response_ids,
             })
-        thread = request.env[thread_model].search([("id", "=", thread_id)])
+        thread = request.env[thread_model].with_context(active_test=False).search([("id", "=", thread_id)])
+        thread = thread.with_context(active_test=True)
         if not thread:
             raise NotFound()
         if "body" in post_data:

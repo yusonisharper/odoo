@@ -203,9 +203,9 @@ class PosConfig(models.Model):
     def _compute_currency(self):
         for pos_config in self:
             if pos_config.journal_id:
-                pos_config.currency_id = pos_config.journal_id.currency_id.id or pos_config.journal_id.company_id.currency_id.id
+                pos_config.currency_id = pos_config.journal_id.currency_id.id or pos_config.journal_id.company_id.sudo().currency_id.id
             else:
-                pos_config.currency_id = pos_config.company_id.currency_id.id
+                pos_config.currency_id = pos_config.company_id.sudo().currency_id.id
 
     @api.depends('session_ids', 'session_ids.state')
     def _compute_current_session(self):
@@ -436,6 +436,7 @@ class PosConfig(models.Model):
                 ))
 
         self._preprocess_x2many_vals_from_settings_view(vals)
+        vals = self._keep_new_vals(vals)
         result = super(PosConfig, self).write(vals)
 
         self.sudo()._set_fiscal_position()
@@ -479,6 +480,23 @@ class PosConfig(models.Model):
                 unlink_commands = [Command.unlink(_id) for _id in linked_ids]
 
                 vals[x2many_field] = unlink_commands + vals[x2many_field]
+
+    def _keep_new_vals(self, vals):
+        """ Keep values in vals that are different than
+        self's values.
+        """
+        from_settings_view = self.env.context.get('from_settings_view')
+        if not from_settings_view:
+            return vals
+        new_vals = {}
+        for field, val in vals.items():
+            config_field = self._fields.get(field)
+            if config_field:
+                cache_value = config_field.convert_to_cache(val, self)
+                record_value = config_field.convert_to_record(cache_value, self)
+                if record_value != self[field]:
+                    new_vals[field] = val
+        return new_vals
 
     def _get_forbidden_change_fields(self):
         forbidden_keys = ['module_pos_hr', 'module_pos_restaurant', 'available_pricelist_ids',
@@ -795,6 +813,10 @@ class PosConfig(models.Model):
             return int(config_param)
         except (TypeError, ValueError, OverflowError):
             return default_limit
+
+    def toggle_images(self, for_products, for_categories):
+        self.env['ir.config_parameter'].sudo().set_param('point_of_sale.show_product_images', for_products)
+        self.env['ir.config_parameter'].sudo().set_param('point_of_sale.show_category_images', for_categories)
 
     def get_limited_partners_loading(self):
         self.env.cr.execute("""

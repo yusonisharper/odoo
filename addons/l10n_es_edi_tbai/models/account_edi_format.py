@@ -24,7 +24,7 @@ from odoo.addons.l10n_es_edi_tbai.models.xml_utils import (
     cleanup_xml_signature, fill_signature, int_as_bytes)
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import get_lang
-from odoo.tools.float_utils import float_repr
+from odoo.tools.float_utils import float_repr, float_round
 from odoo.tools.xml_utils import cleanup_xml_node, validate_xml_from_attachment
 
 
@@ -228,6 +228,10 @@ class AccountEdiFormat(models.Model):
         return xml_str
 
     def _get_l10n_es_tbai_invoice_xml(self, invoice, cancel=False):
+        def format_float(value, precision_digits=2):
+            rounded_value = float_round(value, precision_digits=precision_digits)
+            return float_repr(rounded_value, precision_digits=precision_digits)
+
         # If previously generated XML was posted and not rejected (success or timeout), reuse it
         doc = invoice._get_l10n_es_tbai_submitted_xml(cancel)
         if doc is not None:
@@ -244,7 +248,7 @@ class AccountEdiFormat(models.Model):
             'datetime_now': datetime.now(tz=timezone('Europe/Madrid')),
             'format_date': lambda d: datetime.strftime(d, '%d-%m-%Y'),
             'format_time': lambda d: datetime.strftime(d, '%H:%M:%S'),
-            'format_float': lambda f: float_repr(f, precision_digits=2),
+            'format_float': format_float,
         }
         template_name = 'l10n_es_edi_tbai.template_invoice_main' + ('_cancel' if cancel else '_post')
         xml_str = self.env['ir.qweb']._render(template_name, values)
@@ -356,11 +360,8 @@ class AccountEdiFormat(models.Model):
         # Regime codes (ClaveRegimenEspecialOTrascendencia)
         # NOTE there's 11 more codes to implement, also there can be up to 3 in total
         # See https://www.gipuzkoa.eus/documents/2456431/13761128/Anexo+I.pdf/2ab0116c-25b4-f16a-440e-c299952d683d
-        com_partner = invoice.commercial_partner_id
-        if not com_partner.country_id or com_partner.country_id.code in self.env.ref('base.europe').country_ids.mapped('code'):
-            values['regime_key'] = ['01']
-        else:
-            values['regime_key'] = ['02']
+        export_exempts = invoice.invoice_line_ids.tax_ids.filtered(lambda t: t.l10n_es_exempt_reason == 'E2')
+        values['regime_key'] = ['02'] if export_exempts else ['01']
 
         if invoice.l10n_es_is_simplified:
             values['regime_key'].append(52)  # code for simplified invoices
@@ -393,7 +394,7 @@ class AccountEdiFormat(models.Model):
             if tax_details_info_service_vals['tax_details_info']:
                 desglose.setdefault('DesgloseTipoOperacion', {})
                 desglose['DesgloseTipoOperacion']['PrestacionServicios'] = tax_details_info_service_vals['tax_details_info']
-                desglose['TipoDesglose']['DesgloseTipoOperacion']['PrestacionServicios'].update(
+                desglose['DesgloseTipoOperacion']['PrestacionServicios'].update(
                     {'S1': tax_details_info_service_vals['S1_list'],
                      'S2': tax_details_info_service_vals['S2_list']})
 
