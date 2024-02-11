@@ -1,4 +1,5 @@
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from dateutil import relativedelta
 
 class estate_property(models.Model):
@@ -22,7 +23,7 @@ class estate_property(models.Model):
                                           selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')])
     state = fields.Selection(string='Status', selection=[('new', 'New'), ('offer_received', 'Offer Received'),
                                                   ('offer_accepted', 'Offer Accepted'), ('sold', 'Sold'), ('canceled', 'Canceled')],
-                             required=True, copy=False, default='new')
+                             required=True, copy=False, default='new', readonly=True)
     active = fields.Boolean('Active', default=True)
     property_type_id = fields.Many2one("estate.property.type", string='Property Type')
     user_id = fields.Many2one('res.users', string='salesman', default=lambda self: self.env.user)
@@ -32,6 +33,8 @@ class estate_property(models.Model):
 
     total_area = fields.Float(string="Total Area", compute='_compute_total')
     best_price = fields.Float(string="Best Offer", compute='_compute_best_price')
+
+    offer_accepted = fields.Boolean(default=False)
 
     @api.depends('living_area', 'garden_area')
     def _compute_total(self):
@@ -54,3 +57,19 @@ class estate_property(models.Model):
         return {'warning': {
             'title': _("Warning"),
             'message': ('You changed the garden option.')}}
+
+    def cancel(self):
+        for record in self:
+            if record.state == 'sold':
+                raise UserError("Sold property cannot be canceled.")
+                continue
+            record.state = 'canceled'
+        return True
+
+    def sold(self):
+        for record in self:
+            if record.state == 'canceled':
+                raise UserError("Canceled property cannot be sold.")
+                continue
+            record.state = 'sold'
+        return True
