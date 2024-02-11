@@ -6,3 +6,7 @@ class estate_property_type(models.Model):
     _order = "id desc"
 
     name = fields.Char('Type', required=True)
+
+    _sql_constraints = [
+        ('check_property_type', 'UNIQUE(name)', 'The property type must be unique.'),
+    ]
