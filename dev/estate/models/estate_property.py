@@ -66,15 +66,15 @@ class estate_property(models.Model):
 
     @api.onchange('garden')
     def _onchange_partner(self):
-        if (self.garden):
+        if self.garden:
             self.garden_area = 10
             self.garden_orientation = 'south'
         else:
             self.garden_area = 0
             self.garden_orientation = None
-        return {'warning': {
-            'title': _("Warning"),
-            'message': ('You changed the garden option.')}}
+        # return {'warning': {
+        #     'title': _("Warning"),
+        #     'message': ('You changed the garden option.')}}
 
     def cancel(self):
         for record in self:
