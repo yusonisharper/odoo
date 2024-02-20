@@ -48,3 +48,11 @@ class estate_property_offer(models.Model):
                 offer.property_id.selling_price = 0
                 offer.property_id.buyer_id = ''
             offer.status = 'refused'
+
+    @api.model
+    def create(self, vals):
+        prop = self.env['estate.property'].browse(vals['property_id'])
+        prop.state = 'offer_received'
+        if any(vals['price'] < offer.price for offer in prop.offer_ids):
+            raise UserError("Offer price cannot lower than existing offer.")
+        return super(estate_property_offer, self).create(vals)
