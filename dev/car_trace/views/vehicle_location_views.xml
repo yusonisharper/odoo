@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="vehicle_location_view_form" model="ir.ui.view">
+        <field name="name">vehicle.location.form</field>
+        <field name="model">vehicle.location</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="vehicle_location_view_tree" model="ir.ui.view">
+        <field name="name">vehicle.location.tree</field>
+        <field name="model">vehicle.location</field>
+        <field name="arch" type="xml">
+            <tree string="Vehicle Location" editable="top">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="vehicle_location_action" model="ir.actions.act_window">
+        <field name="name">Vehicle Location</field>
+        <field name="res_model">vehicle.location</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

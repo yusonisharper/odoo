@@ -1,16 +1,19 @@
 {
-    'name': "Car Clue",
+    'name': "Car Trace",
     'version': '1.0',
     'depends': ['base'],
     'author': "Yusheng Wang",
     'category': 'Category',
     'description': """
-    Identify interested vehicles.
+    Description text
     """,
     # data files always loaded at installation
     'data': [
-        'views/vehicle_views.xml',
-        'views/vehicle_list_menus.xml',
+        'security/ir.model.access.csv',
+        'views/vehicle_suspect_views.xml',
+        'views/vehicle_location_views.xml',
+        'views/vehicle_property_views.xml',
+        'views/vehicle_menus.xml',
     ],
     # data files containing optionally loaded demonstration data
     'demo': [

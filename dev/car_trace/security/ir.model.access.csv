@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+car_trace.access_vehicle_property,access_vehicle_property,car_trace.model_vehicle_property,base.group_user,1,1,1,1
+car_trace.access_vehicle_suspect,access_vehicle_suspect,car_trace.model_vehicle_suspect,base.group_user,1,1,1,1
+car_trace.access_vehicle_location,access_vehicle_location,car_trace.model_vehicle_location,base.group_user,1,1,1,1

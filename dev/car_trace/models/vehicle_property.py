@@ -18,6 +18,7 @@ class vehicle_property(models.Model):
     VIN = fields.Char("vehicle identification number")
     name = fields.Char('vehicle', required=True, readonly=True, compute="_compute_name")
     description = fields.Text('description')
+    user_id = fields.Many2one('res.users', string='Handler', default=lambda self: self.env.user)
     state = fields.Selection(string='Status', selection=[('draft', 'Draft'),
                                                          ('confirm', 'Confirm'),
                                                          ('vehicle_discovered', 'Vehicle Discovered'),
@@ -25,9 +26,33 @@ class vehicle_property(models.Model):
                                                          ('canceled', 'Canceled')],
                              required=True, copy=False, default='draft', readonly=True)
     suspects = fields.Many2many("vehicle.suspect", string="suspects")
-    curr_location = fields.One2Many("vehicle.location", "vehicle_id", string="vehicle's latest location")
+    curr_location = fields.One2many("vehicle.location", "vehicle_id", string="vehicle's latest location")
 
     @api.onchange('year', 'make', 'model', 'color')
     def _compute_name(self):
         for record in self:
             record.name = record.year + record.make + record.model + record.color
+
+    def cancel(self):
+        for record in self:
+            if record.state == 'finished':
+                raise UserError("Finished record cannot be canceled.")
+                continue
+            record.state = 'canceled'
+        return True
+
+    def confirm(self):
+        for record in self:
+            if record.state == 'canceled':
+                raise UserError("Canceled record cannot be confirm.")
+                continue
+            record.state = 'confirm'
+        return True
+
+    def finish(self):
+        for record in self:
+            if record.state == 'canceled':
+                raise UserError("Canceled record cannot be finish.")
+                continue
+            record.state = 'finished'
+        return True
