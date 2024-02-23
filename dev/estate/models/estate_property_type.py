@@ -1,9 +1,9 @@
 from odoo import api, fields, models
 
-class EstatePropertyType(models.Model):
+class estate_property_type(models.Model):
     _name = "estate.property.type"
     _description = "estate property type"
-    _order = "sequence, id"
+    _order = "sequence desc"
 
     name = fields.Char('Type', required=True)
     property_ids = fields.One2many('estate.property', "property_type_id", string="property")

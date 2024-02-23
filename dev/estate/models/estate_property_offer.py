@@ -48,12 +48,3 @@ class estate_property_offer(models.Model):
                 offer.property_id.selling_price = 0
                 offer.property_id.buyer_id = ''
             offer.status = 'refused'
-
-    @api.model
-    def create(self, vals):
-        prop = self.env['estate.property'].browse(vals['property_id'])
-        prop.state = 'offer_received'
-        for offer in prop.offer_ids:
-            if vals['price'] < offer.price:
-                raise UserError("Offer price must be higher than %.2f" % vals['price'])
-        return super(estate_property_offer, self).create(vals)
