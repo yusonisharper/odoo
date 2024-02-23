@@ -18,7 +18,7 @@
                     </h1>
                     <group>
                         <group>
-                            <field name="year"/>
+                            <field name="year" options="{'datepicker': {'format': 'YYYY', 'viewMode': 'years'}}"/>
                             <field name="make"/>
                             <field name="model"/>
                             <field name="body_type"/>
@@ -26,6 +26,7 @@
                         </group>
                         <group>
                             <field name="license_plate"/>
+                            <field name="license_plate_state"/>
                             <field name="VIN"/>
                             <field name="description"/>
                         </group>

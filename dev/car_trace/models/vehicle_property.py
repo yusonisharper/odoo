@@ -12,11 +12,11 @@ class vehicle_property(models.Model):
     license_plate_state = fields.Char("license plate state", required=True, copy=False)
     make = fields.Char(string='vehicle brand')
     model = fields.Char(string="vehicle model")
-    year = fields.Integer(string="manufacture year")
+    year = fields.Date(string="manufacture year", copy=False)
     color = fields.Selection(string="color", selection=[('black', 'Black'), ('gray', 'Gray'), ('white', 'White'), ('blue', 'Blue'), ('green', 'Green')])
     body_type = fields.Selection(string="body type", selection=[('sedan', 'Sedan'), ('suv', "SUV"), ('truck', 'Truck'), ('rv', 'RV')])
-    VIN = fields.Char("vehicle identification number")
-    name = fields.Char('vehicle', required=True, readonly=True, compute="_compute_name")
+    VIN = fields.Char("VIN")
+    name = fields.Char('vehicle', readonly=True, default="", compute="_compute_name")
     description = fields.Text('description')
     user_id = fields.Many2one('res.users', string='Handler', default=lambda self: self.env.user)
     state = fields.Selection(string='Status', selection=[('draft', 'Draft'),
@@ -31,7 +31,16 @@ class vehicle_property(models.Model):
     @api.onchange('year', 'make', 'model', 'color')
     def _compute_name(self):
         for record in self:
-            record.name = record.year + record.make + record.model + record.color
+            result = ""
+            if record.year:
+                result = result + str(record.year.year)
+            if record.make:
+                result = result + " " + record.make
+            if record.model:
+                result = result + " " + record.model
+            if record.color:
+                result = result + " " + record.color
+            record.name = result
 
     def cancel(self):
         for record in self:
