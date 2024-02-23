@@ -14,11 +14,15 @@
                     </div>
                     <notebook>
                         <page string="suspect_detail">
-                            <field name="name"/>
-                            <field name="color"/>
-                            <field name="height"/>
-                            <field name="race"/>
-                            <field name="description"/>
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="color"/>
+                                    <field name="height"/>
+                                    <field name="race"/>
+                                    <field name="description"/>
+                                </group>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
@@ -30,14 +34,14 @@
         <field name="name">vehicle.suspect.tree</field>
         <field name="model">vehicle.suspect</field>
         <field name="arch" type="xml">
-            <tree string="Vehicle Suspects">
+            <tree string="Vehicle Suspects" editable="bottom">
                 <field name="name"/>
             </tree>
         </field>
     </record>
 
     <record id="vehicle_suspect_action" model="ir.actions.act_window">
-        <field name="name">=Suspects</field>
+        <field name="name">Suspects</field>
         <field name="res_model">vehicle.suspect</field>
         <field name="view_mode">tree,form</field>
     </record>
