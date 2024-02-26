@@ -23,6 +23,7 @@
                             <field name="model"/>
                             <field name="body_type"/>
                             <field name="color"/>
+                            <field name="last_seen"/>
                         </group>
                         <group>
                             <field name="license_plate"/>

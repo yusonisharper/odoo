@@ -18,6 +18,7 @@ class vehicle_property(models.Model):
     VIN = fields.Char("VIN")
     name = fields.Char('vehicle', readonly=True, default="", compute="_compute_name")
     description = fields.Text('description')
+    last_seen = fields.Date(string="last seen", copy=False, compute='_compute_last_seen_time')
     user_id = fields.Many2one('res.users', string='Handler', default=lambda self: self.env.user)
     state = fields.Selection(string='Status', selection=[('draft', 'Draft'),
                                                          ('confirm', 'Confirm'),
@@ -28,7 +29,7 @@ class vehicle_property(models.Model):
     suspects = fields.Many2many("vehicle.suspect", string="suspects")
     curr_location = fields.One2many("vehicle.location", "vehicle_id", string="vehicle's latest location")
 
-    @api.onchange('year', 'make', 'model', 'color')
+    @api.onchange('year', 'make', 'model', 'body_type', 'color')
     def _compute_name(self):
         for record in self:
             result = ""
@@ -38,10 +39,16 @@ class vehicle_property(models.Model):
                 result = result + " " + record.make
             if record.model:
                 result = result + " " + record.model
+            if record.body_type:
+                result = result + " " + record.body_type
             if record.color:
-                result = result + " " + record.color
+                result = result + ", " + record.color
             record.name = result
 
+    @api.onchange('curr_location.create_date')
+    def _compute_last_seen_time(self):
+        for record in self:
+            record.last_seen = max(record.curr_location.mapped('create_date'), default=0)
     def cancel(self):
         for record in self:
             if record.state == 'finished':
