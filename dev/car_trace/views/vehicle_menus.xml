@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="vehicle_menu_root" name="Car Clue">
+    <menuitem id="vehicle_menu_root" name="Car Trace">
         <menuitem id="vehicle_list_menu" name="Vehicles">
             <menuitem id="vehicle_model_menu_action" action="vehicle_property_action"/>
         </menuitem>
