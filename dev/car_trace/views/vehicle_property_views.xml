@@ -63,6 +63,7 @@
                 <field name="model"/>
                 <field name="color"/>
                 <field name="body_type"/>
+                <field name="last_seen"/>
                 <field name="VIN" optional="hide"/>
                 <field name="state" column_invisible="True"/>
             </tree>
