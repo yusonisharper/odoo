@@ -38,6 +38,7 @@ class estate_property_offer(models.Model):
                 continue
             offer.status = 'accepted'
             offer.property_id.offer_accepted = True
+            offer.property_id.state = "offer_accepted"
             offer.property_id.selling_price = offer.price
             offer.property_id.buyer_id = offer.partner_id
 
@@ -48,6 +49,7 @@ class estate_property_offer(models.Model):
                 offer.property_id.selling_price = 0
                 offer.property_id.buyer_id = ''
             offer.status = 'refused'
+            offer.property_id.state = "offer_received"
 
     @api.model
     def create(self, vals):

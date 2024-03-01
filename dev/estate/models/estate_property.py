@@ -35,7 +35,7 @@ class EstateProperty(models.Model):
     total_area = fields.Float(string="Total Area", compute='_compute_total')
     best_price = fields.Float(string="Best Offer", compute='_compute_best_price')
 
-    offer_accepted = fields.Boolean(default=False)
+    offer_accepted = fields.Boolean(default=False, copy=False)
 
     _sql_constraints = [
         ('check_expected_price', 'CHECK(expected_price > 0)', 'The expected_price is strictly a positive number.'),
