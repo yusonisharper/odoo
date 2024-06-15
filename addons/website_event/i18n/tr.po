@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 12:31+0000\n"
+"POT-Creation-Date: 2024-01-29 10:44+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
@@ -415,6 +415,16 @@ msgid "Cards"
 msgstr "Kartlar"
 
 #. module: website_event
+#: model_terms:ir.ui.view,arch_db:website_event.snippet_options
+msgid "Card design"
+msgstr ""
+
+#. module: website_event
+#: model_terms:ir.ui.view,arch_db:website_event.snippet_options
+msgid "Template badge"
+msgstr ""
+
+#. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.display_timer_alert_widget
 #: model_terms:ir.ui.view,arch_db:website_event.index_topbar
 #: model_terms:ir.ui.view,arch_db:website_event.modal_ticket_registration
@@ -504,7 +514,6 @@ msgid "Created on"
 msgstr "Oluşturulma"
 
 #. module: website_event
-#: model_terms:ir.ui.view,arch_db:website_event.index_topbar
 #: model_terms:ir.ui.view,arch_db:website_event.event_time
 #: model_terms:ir.ui.view,arch_db:website_event.snippet_options
 msgid "Date"
@@ -1248,6 +1257,11 @@ msgstr "Etkinlik listesine dön."
 #: model:ir.model.fields,field_description:website_event.field_event_event__is_seo_optimized
 msgid "SEO optimized"
 msgstr "SEO en iyileştirildi"
+
+#. module: website_event
+#: model_terms:ir.ui.view,arch_db:website_event.event_description_full
+msgid "Share"
+msgstr "Paylaş"
 
 #. module: website_event
 #: model_terms:ir.ui.view,arch_db:website_event.event_description_full

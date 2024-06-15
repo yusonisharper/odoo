@@ -6,8 +6,10 @@
 # Yousef Shadmanesh <y.shadmanesh@gmail.com>, 2023
 # Hamed Mohammadi <hamed@dehongi.com>, 2023
 # Hamid Darabi, 2023
-# Hanna Kheradroosta, 2023
 # Martin Trigaux, 2023
+# Abbas Ebadian, 2024
+# Hanna Kheradroosta, 2024
+# Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 21:56+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -202,7 +204,30 @@ msgstr ""
 #. odoo-python
 #: code:addons/phone_validation/tools/phone_validation.py:0
 #, python-format
+msgid "Impossible number %s: not a valid country prefix."
+msgstr ""
+
+#. module: phone_validation
+#. odoo-python
+#: code:addons/phone_validation/tools/phone_validation.py:0
+#, python-format
+msgid "Impossible number %s: not enough digits."
+msgstr ""
+
+#. module: phone_validation
+#. odoo-python
+#: code:addons/phone_validation/tools/phone_validation.py:0
+#, python-format
 msgid "Impossible number %s: probably invalid number of digits."
+msgstr ""
+
+#. module: phone_validation
+#. odoo-python
+#: code:addons/phone_validation/tools/phone_validation.py:0
+#: code:addons/phone_validation/tools/phone_validation.py:0
+#: code:addons/phone_validation/tools/phone_validation.py:0
+#, python-format
+msgid "Impossible number %s: too many digits."
 msgstr ""
 
 #. module: phone_validation
@@ -300,7 +325,7 @@ msgstr "تعداد خطاها"
 #: model:ir.model.fields,help:phone_validation.field_mail_thread_phone__message_needaction_counter
 #: model:ir.model.fields,help:phone_validation.field_phone_blacklist__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "تعداد پیام هایی که نیاز به اقدام دارند"
 
 #. module: phone_validation
 #: model:ir.model.fields,help:phone_validation.field_mail_thread_phone__message_has_error_counter
@@ -355,6 +380,7 @@ msgstr "تلفن/موبایل"
 msgid ""
 "Please enter at least 3 characters when searching a Phone/Mobile number."
 msgstr ""
+"لطفاً هنگام جستجوی یک شماره تلفن/ شماره همراه حداقل 3 حرف را وارد کنید."
 
 #. module: phone_validation
 #: model:ir.model.fields,field_description:phone_validation.field_phone_blacklist_remove__reason
@@ -370,7 +396,7 @@ msgstr ""
 #. module: phone_validation
 #: model:ir.model.fields,field_description:phone_validation.field_mail_thread_phone__phone_sanitized
 msgid "Sanitized Number"
-msgstr ""
+msgstr "شماره معتبر شده"
 
 #. module: phone_validation
 #. odoo-python

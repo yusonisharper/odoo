@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 12:31+0000\n"
+"POT-Creation-Date: 2024-01-30 14:15+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
@@ -957,6 +957,11 @@ msgstr "Alle Abwesenheiten"
 #: model:ir.model.fields.selection,name:hr_holidays.selection__hr_leave_accrual_level__action_with_unused_accruals__all
 msgid "All accrued time carried over"
 msgstr "Die gesamte Rückstellungszeit übertragen"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave__last_several_days
+msgid "All day"
+msgstr "Ganztägig"
 
 #. module: hr_holidays
 #. odoo-javascript
@@ -2794,7 +2799,7 @@ msgstr "Neu"
 #: code:addons/hr_holidays/models/hr_leave.py:0
 #, python-format
 msgid "New %(leave_type)s Request created by %(user)s"
-msgstr "Neue Antrag auf %(leave_type)s erstellt von %(user)s"
+msgstr "Neuer Antrag auf %(leave_type)s erstellt von %(user)s"
 
 #. module: hr_holidays
 #. odoo-javascript
@@ -3539,6 +3544,15 @@ msgstr "Alle Datensätze mit vor heute geplanten Aktionen anzeigen"
 #: model:mail.message.subtype,name:hr_holidays.mt_leave_sick
 msgid "Sick Time Off"
 msgstr "Krankheit"
+
+#. module: hr_holidays
+#. odoo-javascript
+#: code:addons/hr_holidays/static/src/dashboard/time_off_card.xml:0
+#, python-format
+msgid "Some leaves cannot be linked to any allocation. To see those leaves,"
+msgstr ""
+"Einige Urlaubstage können nicht mit einem Urlaubsanspruch verknüpft werden. "
+"Um diese Urlaubstage zu sehen,"
 
 #. module: hr_holidays
 #: model:ir.model.fields,help:hr_holidays.field_hr_leave_accrual_plan__time_off_type_id
@@ -4661,6 +4675,16 @@ msgstr ""
 
 #. module: hr_holidays
 #. odoo-python
+#: code:addons/hr_holidays/models/hr_leave_accrual_plan_level.py:0
+#, python-format
+msgid ""
+"You cannot have a cap on accrued time without setting a maximum amount."
+msgstr ""
+"Sie können keine Obergrenze für die rückgestellte Zeit haben, ohne einen "
+"Höchstbetrag festzulegen."
+
+#. module: hr_holidays
+#. odoo-python
 #: code:addons/hr_holidays/models/hr_leave_allocation.py:0
 #, python-format
 msgid ""
@@ -4818,6 +4842,13 @@ msgid "can be used before the allocation expires."
 msgstr "können verwendet werden, bevor der Anspruch verfällt."
 
 #. module: hr_holidays
+#. odoo-javascript
+#: code:addons/hr_holidays/static/src/dashboard/time_off_card.xml:0
+#, python-format
+msgid "click here"
+msgstr "hier klicken"
+
+#. module: hr_holidays
 #: model_terms:ir.ui.view,arch_db:hr_holidays.hr_accrual_plan_view_form
 msgid "day of the month"
 msgstr "Tag des Monats"
@@ -4901,7 +4932,7 @@ msgstr "in"
 #. module: hr_holidays
 #: model_terms:ir.ui.view,arch_db:hr_holidays.hr_accrual_plan_view_form
 msgid "initially"
-msgstr "initial"
+msgstr "ursprünglich"
 
 #. module: hr_holidays
 #. odoo-python

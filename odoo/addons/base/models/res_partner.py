@@ -8,6 +8,7 @@ import hashlib
 import pytz
 import threading
 import re
+import warnings
 
 import requests
 from collections import defaultdict
@@ -434,8 +435,6 @@ class Partner(models.Model):
 
     @api.model
     def _get_view(self, view_id=None, view_type='form', **options):
-        if (not view_id) and (view_type == 'form') and self._context.get('force_email'):
-            view_id = self.env.ref('base.view_partner_simple_form').id
         arch, view = super()._get_view(view_id, view_type, **options)
         company = self.env.company
         if company.country_id.vat_label:
@@ -926,8 +925,7 @@ class Partner(models.Model):
         return base64.b64encode(res.content)
 
     def _email_send(self, email_from, subject, body, on_error=None):
-        for partner in self.filtered('email'):
-            tools.email_send(email_from, [partner.email], subject, body, on_error)
+        warnings.warn("Partner._email_send has not done anything but raise errors since 15.0", stacklevel=2, category=DeprecationWarning)
         return True
 
     def address_get(self, adr_pref=None):
@@ -1059,6 +1057,15 @@ class Partner(models.Model):
     def _get_country_name(self):
         return self.country_id.name or ''
 
+    def _get_all_addr(self):
+        self.ensure_one()
+        return [{
+            'contact_type': self.street,
+            'street': self.street,
+            'zip': self.zip,
+            'city': self.city,
+            'country': self.country_id.code,
+        }]
 
 
 class ResPartnerIndustry(models.Model):

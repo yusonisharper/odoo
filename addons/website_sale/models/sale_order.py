@@ -367,6 +367,9 @@ class SaleOrder(models.Model):
                 "Your cart is not ready to be paid, please verify previous steps."
             ))
 
+        if not self.only_services and not self.carrier_id:
+            raise ValidationError(_("No shipping method is selected."))
+
     def _cart_accessories(self):
         """ Suggest accessories based on 'Accessory Products' of products in cart """
         product_ids = set(self.website_order_line.product_id.ids)
@@ -493,17 +496,18 @@ class SaleOrder(models.Model):
             city = order_location['pick_up_point_town']
             zip_code = order_location['pick_up_point_postal_code']
             country = order.env['res.country'].search([('code', '=', order_location['pick_up_point_country'])]).id
-            state = order.env['res.country.state'].search(['&', ('code', '=', order_location['pick_up_point_state']), ('country_id.id', '=', country)]).id if (order_location['pick_up_point_state'] and country) else None
+            state = order.env['res.country.state'].search(['&', ('code', '=', order_location['pick_up_point_state']), ('country_id', '=', country)]).id if (order_location['pick_up_point_state'] and country) else None
             parent_id = order.partner_shipping_id.id
             email = order.partner_shipping_id.email
             phone = order.partner_shipping_id.phone
 
             # we can check if the current partner has a partner of type "delivery" that has the same address
-            existing_partner = order.env['res.partner'].search(['&', '&', '&', '&',
+            existing_partner = order.env['res.partner'].search(['&', '&', '&', '&', '&',
                                                                 ('street', '=', street),
                                                                 ('city', '=', city),
                                                                 ('state_id', '=', state),
                                                                 ('country_id', '=', country),
+                                                                ('parent_id', '=', parent_id),
                                                                 ('type', '=', 'delivery')], limit=1)
 
             if existing_partner:

@@ -3,7 +3,7 @@
 # 	* website_slides
 # 
 # Translators:
-# Wil Odoo, 2023
+# Wil Odoo, 2024
 # Larissa Manderfeld, 2024
 # 
 msgid ""
@@ -1079,6 +1079,16 @@ msgstr ""
 "Abschnitt und klicken Sie auf <b>Speichern</b>, um ihn zu erstellen."
 
 #. module: website_slides
+#. odoo-javascript
+#: code:addons/website_slides/static/src/js/tours/slides_tour.js:0
+#, python-format
+msgid ""
+"A good course has a structure. Pick a name for your first <b>Section</b>."
+msgstr ""
+"Ein guter Kurs hat eine Struktur. Wählen Sie einen Namen für Ihren ersten "
+"<b>Abschnitt</b>."
+
+#. module: website_slides
 #: model:slide.slide,name:website_slides.slide_slide_demo_1_4
 msgid "A little chat with Harry Potted"
 msgstr "Ein kleines Gespräch mit Harry Potted"
@@ -1280,6 +1290,7 @@ msgstr "Kommentar hinzufügen"
 #: code:addons/website_slides/static/src/js/slides_upload.js:0
 #: code:addons/website_slides/static/src/js/slides_upload.js:0
 #: model_terms:ir.actions.act_window,help:website_slides.slide_slide_action
+#: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list
 #: model_terms:ir.ui.view,arch_db:website_slides.view_slide_channel_form
 #, python-format
 msgid "Add Content"
@@ -1335,6 +1346,11 @@ msgstr "Fügen Sie dieser Antwort einen Kommentar hinzu"
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_channel_invite_view_form
 msgid "Add contacts..."
 msgstr "Kontakte hinzufügen ..."
+
+#. module: website_slides
+#: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list_slide
+msgid "Add quiz"
+msgstr "Quiz hinzufügen"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_content_detailed
@@ -1654,6 +1670,11 @@ msgid "Back"
 msgstr "Zurück"
 
 #. module: website_slides
+#: model_terms:ir.ui.view,arch_db:website_slides.slide_fullscreen
+msgid "Back to course"
+msgstr "Zurück zum Kurs"
+
+#. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel__website_default_background_image_url
 msgid "Background image URL"
 msgstr "Hintergrundbild-URL"
@@ -1917,6 +1938,13 @@ msgid "Clear filters"
 msgstr "Filter löschen"
 
 #. module: website_slides
+#. odoo-javascript
+#: code:addons/website_slides/static/src/js/tours/slides_tour.js:0
+#, python-format
+msgid "Click <b>Save</b> to create it."
+msgstr "Klicken Sie auf <b>Speichern</b>, um ihn zu erstellen."
+
+#. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.mail_notification_channel_invite
 msgid "Click here to get started"
 msgstr "Hier klicken, um loszulegen"
@@ -1950,6 +1978,15 @@ msgstr ""
 msgid "Click on the <b>Create</b> button to create your first course."
 msgstr ""
 "Klicken Sie auf die Schaltfläche <b>Erstellen</b>, um Ihren ersten Kurs zu "
+"erstellen."
+
+#. module: website_slides
+#. odoo-javascript
+#: code:addons/website_slides/static/src/js/tours/slides_tour.js:0
+#, python-format
+msgid "Click on the <b>Save</b> button to create your first course."
+msgstr ""
+"Klicken Sie auf die Schaltfläche <b>Speichern</b>, um Ihren ersten Kurs zu "
 "erstellen."
 
 #. module: website_slides
@@ -2640,6 +2677,7 @@ msgstr "Legt fest, wer auf Ihre Kurse und deren Inhalte zugreifen kann."
 #. module: website_slides
 #. odoo-javascript
 #: code:addons/website_slides/static/src/js/slides_category_delete.js:0
+#: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list_slide
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_channel_view_kanban
 #, python-format
 msgid "Delete"
@@ -2879,6 +2917,7 @@ msgid "Earn more Karma to leave a comment."
 msgstr "Mehr Karma-Punkte verdienen, um kommentieren zu können."
 
 #. module: website_slides
+#: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list_slide
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_channel_view_kanban
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -2946,6 +2985,13 @@ msgstr "Code einbetten"
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_embed_view_tree
 msgid "Embed Views"
 msgstr "Ansichten einbetten"
+
+#. module: website_slides
+#. odoo-python
+#: code:addons/website_slides/models/slide_slide.py:0
+#, python-format
+msgid "Embed code"
+msgstr "Code einbetten"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_social_embed
@@ -3038,7 +3084,7 @@ msgstr "Geschätzte Fertigstellungszeit"
 msgid "Evaluate the knowledge of your Attendees and certify their skills."
 msgstr ""
 "Bewerten Sie die Kenntnisse Ihrer Teilnehmer und bescheinigen Sie deren "
-"Fähigkeiten."
+"Kompetenzen."
 
 #. module: website_slides
 #: model:ir.model.fields.selection,name:website_slides.selection__slide_channel__visibility__public
@@ -3049,6 +3095,11 @@ msgstr "Jeder"
 #: model:slide.tag,name:website_slides.slide_tag_demo_exercises
 msgid "Exercises"
 msgstr "Übungen"
+
+#. module: website_slides
+#: model_terms:ir.ui.view,arch_db:website_slides.slide_fullscreen
+msgid "Exit Fullscreen"
+msgstr "Vollbildmodus beenden"
 
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_slide__embed_code_external
@@ -3234,6 +3285,11 @@ msgstr ""
 "Fortschritte verfolgen."
 
 #. module: website_slides
+#: model_terms:ir.ui.view,arch_db:website_slides.slide_content_detailed
+msgid "Fullscreen"
+msgstr "Vollbild"
+
+#. module: website_slides
 #: model:slide.channel.tag,name:website_slides.slide_channel_tag_role_furniture
 msgid "Furniture Designer"
 msgstr "Möbeldesigner"
@@ -3303,7 +3359,10 @@ msgid "Google Doc Key"
 msgstr "Google-Doc-Schlüssel"
 
 #. module: website_slides
+#. odoo-python
+#: code:addons/website_slides/models/slide_slide.py:0
 #: model:ir.model.fields.selection,name:website_slides.selection__slide_slide__video_source_type__google_drive
+#, python-format
 msgid "Google Drive"
 msgstr "Google Drive"
 
@@ -4378,6 +4437,7 @@ msgstr "Neueste Kurse"
 #. module: website_slides
 #. odoo-javascript
 #: code:addons/website_slides/static/src/xml/slide_quiz.xml:0
+#: model_terms:ir.ui.view,arch_db:website_slides.slide_content_detailed
 #, python-format
 msgid "Next"
 msgstr "Weiter"
@@ -4682,6 +4742,12 @@ msgid "Operation not supported"
 msgstr "Vorgang nicht unterstützt"
 
 #. module: website_slides
+#: code:addons/website_slides/controllers/mail.py:0
+#, python-format
+msgid "Only a single review can be posted per course."
+msgstr "Pro Kurs kann nur eine einzige Rezension veröffentlicht werden."
+
+#. module: website_slides
 #: model:ir.model.fields,help:website_slides.field_slide_channel_invite__lang
 msgid ""
 "Optional translation language (ISO code) to select when sending out an "
@@ -4849,10 +4915,16 @@ msgid "Presentation Published"
 msgstr "Präsentation veröffentlicht"
 
 #. module: website_slides
+#: model_terms:ir.ui.view,arch_db:website_slides.course_slides_list_slide
 #: model_terms:ir.ui.view,arch_db:website_slides.lesson_card
 #: model_terms:ir.ui.view,arch_db:website_slides.view_slide_channel_form
 msgid "Preview"
 msgstr "Vorschau"
+
+#. module: website_slides
+#: model_terms:ir.ui.view,arch_db:website_slides.slide_content_detailed
+msgid "Previous"
+msgstr "Vorherige"
 
 #. module: website_slides
 #: model_terms:ir.ui.view,arch_db:website_slides.course_join
@@ -4863,6 +4935,17 @@ msgstr "Privatkurs"
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_channel_partner_view_tree
 msgid "Progress"
 msgstr "Fortschritt"
+
+#. module: website_slides
+#. odoo-javascript
+#: code:addons/website_slides/static/src/xml/slide_quiz.xml:0
+#: model_terms:ir.ui.view,arch_db:website_slides.course_card
+#: model_terms:ir.ui.view,arch_db:website_slides.course_join
+#: model_terms:ir.ui.view,arch_db:website_slides.slide_fullscreen
+#: model_terms:ir.ui.view,arch_db:website_slides.slide_main
+#, python-format
+msgid "Progress bar"
+msgstr "Fortschrittsbalken"
 
 #. module: website_slides
 #: model:ir.model.fields,field_description:website_slides.field_slide_channel__promoted_slide_id
@@ -5298,6 +5381,7 @@ msgid "Score"
 msgstr "Ergebnis"
 
 #. module: website_slides
+#: model_terms:ir.ui.view,arch_db:website_slides.course_nav
 #: model_terms:ir.ui.view,arch_db:website_slides.course_slides_cards
 msgid "Search"
 msgstr "Suchen"
@@ -5451,6 +5535,7 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #. module: website_slides
+#: model_terms:ir.ui.view,arch_db:website_slides.slide_content_detailed
 #: model_terms:ir.ui.view,arch_db:website_slides.slide_fullscreen
 msgid "Share"
 msgstr "Teilen"
@@ -5671,7 +5756,10 @@ msgstr ""
 "Antworten eingereicht werden"
 
 #. module: website_slides
+#. odoo-javascript
+#: code:addons/website_slides/static/src/xml/website_slides_fullscreen.xml:0
 #: model:ir.model,name:website_slides.model_slide_slide
+#, python-format
 msgid "Slides"
 msgstr "Folien"
 
@@ -6544,7 +6632,10 @@ msgid "Views •"
 msgstr "Ansichten •"
 
 #. module: website_slides
+#. odoo-python
+#: code:addons/website_slides/models/slide_slide.py:0
 #: model:ir.model.fields.selection,name:website_slides.selection__slide_slide__video_source_type__vimeo
+#, python-format
 msgid "Vimeo"
 msgstr "Vimeo"
 
@@ -7029,7 +7120,10 @@ msgid "You're enrolled"
 msgstr "Sie sind eingeschrieben"
 
 #. module: website_slides
+#. odoo-python
+#: code:addons/website_slides/models/slide_slide.py:0
 #: model:ir.model.fields.selection,name:website_slides.selection__slide_slide__video_source_type__youtube
+#, python-format
 msgid "YouTube"
 msgstr "YouTube"
 

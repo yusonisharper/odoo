@@ -6,14 +6,15 @@
 # Martin Trigaux, 2023
 # Wil Odoo, 2024
 # Tony Ng, 2024
+# Pak Wai Ho, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-15 10:38+0000\n"
+"POT-Creation-Date: 2024-01-29 10:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Pak Wai Ho, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -737,6 +738,11 @@ msgid "<i class=\"fa fa-fw fa-check\"/> Paid"
 msgstr "<i class=\"fa fa-fw fa-check\"/> 已付款"
 
 #. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_content
+msgid "<i class=\"fa fa-fw fa-check\"/> Reversed"
+msgstr "<i class=\"fa fa-fw fa-check\"/> 已撤銷"
+
+#. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.portal_my_quotations
 msgid "<i class=\"fa fa-fw fa-clock-o\"/> Expired"
 msgstr "<i class=\"fa fa-fw fa-clock-o\"/> 逾期"
@@ -1144,8 +1150,16 @@ msgid ""
 "Quotation: the document will be sent to and accessible by customers at any time.\n"
 "e.g. this option can be useful to share Product description files.\n"
 "Confirmed order: the document will be sent to and accessible by customers.\n"
-"e.g. this option can be useful to share User Manual or digital content bought on ecommerce. "
+"e.g. this option can be useful to share User Manual or digital content bought on ecommerce. \n"
+"Inside quote: The document will be included in the pdf of the quotation between the header pages and the quote table. "
 msgstr ""
+"允許您在銷售中與客戶共享文檔。\n"
+"如果不想與銷售客戶共享此文檔，請將其留空。\n"
+"報價: 文件將發送給客戶，客戶可隨時訪問。\n"
+"例如，該選項可用於共享產品描述文件。\n"
+"確認訂單：該文件將發送給客戶並供其訪問。\n"
+"例如，此選項可用於共享用戶手冊或在電子商務上購買的數字內容。\n"
+"內部引用:文件將包含在報價單的PDF文件中,位於頁眉和報價表之間。"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_payment_link_wizard__amount_paid
@@ -1948,8 +1962,11 @@ msgstr "交貨數量"
 #: model:ir.model.fields,help:sale.field_sale_order__expected_date
 msgid ""
 "Delivery date you can promise to the customer, computed from the minimum "
-"lead time of the order lines."
+"lead time of the order lines in case of Service products. In case of "
+"shipping, the shipping policy of the order will be taken into account to "
+"either use the minimum or maximum lead time of the order lines."
 msgstr ""
+"交貨日期，您可以向客戶承諾，在服務產品的情況下，從訂單行的最短提前期計算。在裝運的情況下，將考慮訂單的裝運策略，以使用訂單行的最短或最長提前期。"
 
 #. module: sale
 #: model:product.template,name:sale.advance_product_0_product_template
@@ -2024,14 +2041,14 @@ msgstr "折扣精靈"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "Discount:"
-msgstr "折扣:"
+msgstr "折扣："
 
 #. module: sale
 #. odoo-python
 #: code:addons/sale/wizard/sale_order_discount.py:0
 #, python-format
 msgid "Discount: %(percent)s%%"
-msgstr "折扣:%(percent)s%%"
+msgstr "折扣：%(percent)s%%"
 
 #. module: sale
 #. odoo-python
@@ -2153,7 +2170,7 @@ msgstr "首期付款<br/>"
 #: code:addons/sale/wizard/sale_make_invoice_advance.py:0
 #, python-format
 msgid "Down payment invoice"
-msgstr ""
+msgstr "首期付款發票"
 
 #. module: sale
 #. odoo-python
@@ -3250,11 +3267,6 @@ msgid "Order Date: Last 365 Days"
 msgstr "訂單日期：過去365天"
 
 #. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_content
-msgid "Order Detail"
-msgstr "訂單詳情"
-
-#. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__order_line
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "Order Lines"
@@ -3339,6 +3351,11 @@ msgstr "Oscar Morgan"
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "Other Info"
 msgstr "其他資訊"
+
+#. module: sale
+#: model:ir.actions.report,name:sale.action_report_saleorder
+msgid "PDF Quote"
+msgstr "PDF 報價"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_sale_pdf_quote_builder
@@ -3461,7 +3478,7 @@ msgstr "網站入口訪問網址"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Prepayment amount"
-msgstr ""
+msgstr "預付金額"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_company__prepayment_percent
@@ -3717,11 +3734,6 @@ msgid "Quotation #"
 msgstr "報價單 #"
 
 #. module: sale
-#: model:ir.actions.report,name:sale.action_report_saleorder
-msgid "Quotation / Order"
-msgstr "報價單/訂單"
-
-#. module: sale
 #: model:ir.model.fields,field_description:sale.field_utm_campaign__quotation_count
 msgid "Quotation Count"
 msgstr "報價計數"
@@ -3804,6 +3816,11 @@ msgstr "報價單及銷售"
 #: model_terms:ir.ui.view,arch_db:sale.portal_my_home_sale
 msgid "Quotations to review"
 msgstr "待審閲報價"
+
+#. module: sale
+#: model:ir.model.fields,field_description:sale.field_sale_order__rating_ids
+msgid "Ratings"
+msgstr "點評"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_product_product__expense_policy
@@ -3889,7 +3906,7 @@ msgstr "要求客戶在網上簽名以確認訂單。"
 msgid ""
 "Request an online prepayment from your customers to confirm orders. You can "
 "ask them to fully pay the order or partially with a downpayment"
-msgstr ""
+msgstr "要求客戶進行線上預付以確認訂單。您可以要求他們全額支付訂單款項或者支付部分款項。"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -4164,6 +4181,14 @@ msgstr "銷售團隊"
 #: model:ir.model.fields,field_description:sale.field_res_users__sale_warn
 msgid "Sales Warnings"
 msgstr "銷售警告"
+
+#. module: sale
+#: model:ir.model.fields,help:sale.field_account_analytic_line__so_line
+msgid ""
+"Sales order item to which the time spent will be added in order to be "
+"invoiced to your customer. Remove the sales order item for the timesheet "
+"entry to be non-billable."
+msgstr "將增加所花費時間的銷售訂單項目，以便向您的客戶開具應收憑單. 刪除時間表分錄的銷售訂單項目是不可開票具應收憑單的."
 
 #. module: sale
 #: model:ir.model.fields.selection,name:sale.selection__product_template__expense_policy__sales_price
@@ -4825,6 +4850,14 @@ msgstr "確認報價所需支付金額的百分比。"
 
 #. module: sale
 #. odoo-python
+#. odoo-python
+#: code:addons/sale/models/product_template.py:0
+#, python-format
+msgid "The product (%s) has incompatible values: %s"
+msgstr "產品 (%s) 有不兼容的值： %s"
+
+#. module: sale
+#. odoo-python
 #: code:addons/sale/wizard/sale_make_invoice_advance.py:0
 #, python-format
 msgid ""
@@ -5357,6 +5390,13 @@ msgstr "您可以在此處設定將在銷售訂單上顯示的通信類型.當�
 #, python-format
 msgid "You cannot cancel a locked order. Please unlock it first."
 msgstr "已鎖定訂單不可取消。請先解鎖它。"
+
+#. module: sale
+#. odoo-python
+#: code:addons/sale/models/sale_order.py:0
+#, python-format
+msgid "You cannot change the pricelist of a confirmed order !"
+msgstr "已確認的訂單，不可更改價目表。"
 
 #. module: sale
 #. odoo-python

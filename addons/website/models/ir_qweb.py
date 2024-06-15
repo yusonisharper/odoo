@@ -43,11 +43,11 @@ class IrQWeb(models.AbstractModel):
         irQweb = super()._prepare_frontend_environment(values)
 
         current_website = request.website
-        editable = request.env.user.has_group('website.group_website_designer')
+        has_group_restricted_editor = irQweb.env.user.has_group('website.group_website_restricted_editor')
+        editable = has_group_restricted_editor
         translatable = editable and irQweb.env.context.get('lang') != irQweb.env['ir.http']._get_default_lang().code
         editable = editable and not translatable
 
-        has_group_restricted_editor = irQweb.env.user.has_group('website.group_website_restricted_editor')
         if has_group_restricted_editor and irQweb.env.user.has_group('website.group_multi_website'):
             values['multi_website_websites_current'] = lazy(lambda: current_website.name)
             values['multi_website_websites'] = lazy(lambda: [
@@ -81,10 +81,9 @@ class IrQWeb(models.AbstractModel):
         # update options
 
         irQweb = irQweb.with_context(website_id=current_website.id)
-
         if 'inherit_branding' not in irQweb.env.context and not self.env.context.get('rendering_bundle'):
             if editable:
-                # in edit mode add brancding on ir.ui.view tag nodes
+                # in edit mode add branding on ir.ui.view tag nodes
                 irQweb = irQweb.with_context(inherit_branding=True)
             elif has_group_restricted_editor and not translatable:
                 # will add the branding on fields (into values)

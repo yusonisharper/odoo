@@ -1486,6 +1486,15 @@ resource_name          = pos_stripe
 replace_edited_strings = false
 keep_translations      = false
 
+[o:odoo:p:odoo-17:r:pos_viva_wallet]
+file_filter            = addons/pos_viva_wallet/i18n/<lang>.po
+source_file            = addons/pos_viva_wallet/i18n/pos_viva_wallet.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = pos_viva_wallet
+replace_edited_strings = false
+keep_translations      = false
+
 [o:odoo:p:odoo-17:r:privacy_lookup]
 file_filter            = addons/privacy_lookup/i18n/<lang>.po
 source_file            = addons/privacy_lookup/i18n/privacy_lookup.pot
@@ -1717,6 +1726,15 @@ source_file            = addons/sale/i18n/sale.pot
 type                   = PO
 minimum_perc           = 0
 resource_name          = sale
+replace_edited_strings = false
+keep_translations      = false
+
+[o:odoo:p:odoo-17:r:sale_async_emails]
+file_filter            = addons/sale_async_emails/i18n/<lang>.po
+source_file            = addons/sale_async_emails/i18n/sale_async_emails.pot
+type                   = PO
+minimum_perc           = 0
+resource_name          = sale_async_emails
 replace_edited_strings = false
 keep_translations      = false
 

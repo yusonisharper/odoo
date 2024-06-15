@@ -3,16 +3,16 @@
 # 	* hr_skills
 # 
 # Translators:
-# Larissa Manderfeld, 2023
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 12:31+0000\n"
+"POT-Creation-Date: 2024-01-29 10:44+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -224,6 +224,13 @@ msgstr "Neuen Eintrag erstellen"
 
 #. module: hr_skills
 #. odoo-javascript
+#: code:addons/hr_skills/static/src/fields/resume_one2many/resume_one2many.js:0
+#, python-format
+msgid "Create a resume line"
+msgstr "Eine Lebenslaufzeile erstellen"
+
+#. module: hr_skills
+#. odoo-javascript
 #: code:addons/hr_skills/static/src/fields/skills_one2many/skills_one2many.xml:0
 #, python-format
 msgid "Create new Skills"
@@ -310,7 +317,7 @@ msgstr "Davis, Sanchez and Miller"
 #. module: hr_skills
 #: model:ir.model.fields,field_description:hr_skills.field_hr_skill_level__default_level
 msgid "Default Level"
-msgstr "Standard-Level"
+msgstr "Standardlevel"
 
 #. module: hr_skills
 #: model_terms:ir.ui.view,arch_db:hr_skills.report_employee_cv_company
@@ -985,7 +992,7 @@ msgstr "Phillips, Jones and Brown"
 #: code:addons/hr_skills/static/src/fields/skills_one2many/skills_one2many.xml:0
 #, python-format
 msgid "Pick a skill from the list"
-msgstr "Wählen Sie eine Kompetenz aus der Liste"
+msgstr "Eine Kompetenz aus der Liste auswählen"
 
 #. module: hr_skills
 #: model:hr.resume.line,description:hr_skills.employee_resume_mit_burns_lester_and_cuevas
@@ -1034,6 +1041,11 @@ msgstr "Fortschritt"
 #: model_terms:ir.ui.view,arch_db:hr_skills.employee_skill_level_view_form
 msgid "Progress (%)"
 msgstr "Fortschritt (%)"
+
+#. module: hr_skills
+#: model_terms:ir.ui.view,arch_db:hr_skills.report_employee_cv_main_panel
+msgid "Progress bar"
+msgstr "Fortschrittsbalken"
 
 #. module: hr_skills
 #: model:ir.model.fields,help:hr_skills.field_hr_employee_skill__level_progress

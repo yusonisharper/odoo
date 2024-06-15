@@ -336,7 +336,7 @@ class TestSaleCouponProgramRules(TestSaleCouponCommon):
         })
         product = self.env['product.product'].create({
             'name': 'Test product',
-            'type': 'product',
+            'type': 'consu',
             'list_price': 200.0,
             'invoice_policy': 'delivery',
         })
@@ -357,3 +357,95 @@ class TestSaleCouponProgramRules(TestSaleCouponCommon):
         order.action_confirm()
         self.assertEqual(order.delivery_set, True)
         self.assertEqual(order.invoice_status, 'no')
+
+    def test_delivery_shant_count_toward_quantity_bought(self):
+
+        # Create promotion: 10% for everything
+        discount_program = self.env['loyalty.program'].create({
+            'name': '10 percent off order with min. 2 products',
+            'trigger': 'auto',
+            'program_type': 'promotion',
+            'applies_on': 'current',
+            'rule_ids': [(0, 0, {
+                'minimum_qty': 2,
+                'minimum_amount':0,
+            })],
+           'reward_ids': [(0, 0, {
+                'reward_type': 'discount',
+                'discount_mode': 'percent',
+                'discount': 10.0,
+                'discount_applicability': 'order',
+            })],
+        })
+
+        # Create an order including: product and delivery
+        order = self.empty_order
+        self.env['sale.order.line'].create({
+            'product_id': self.iPadMini.id,
+            'name': self.iPadMini.name,
+            'product_uom_qty': 1.0,
+            'order_id': order.id,
+        })
+        self.env['sale.order.line'].create({
+            'product_id': self.product_delivery_poste.id,
+            'name': 'Free delivery charges\nFree Shipping',
+            'product_uom_qty': 1.0,
+            'order_id': order.id,
+            'is_delivery': True,
+        })
+
+        # Calculate promotions
+        self._auto_rewards(order, discount_program)
+
+        # Make sure the promotion is NOT added
+        err_msg = "No reward lines should be created as the delivery line shouldn't be included in the promotion calculation"
+        self.assertEqual(len(order.order_line.ids), 2, err_msg)
+
+    def test_free_shipping_should_be_removed_when_rules_are_not_met(self):
+        p_1 = self.env['loyalty.program'].create({
+            'name': 'Free shipping if > 872 tax excl',
+            'trigger': 'with_code',
+            'rule_ids': [(0, 0, {
+                'mode': 'with_code',
+                'code': 'free_shipping',
+                'minimum_amount': 872,
+            })],
+            'reward_ids': [(0, 0, {
+                'reward_type': 'shipping',
+            })],
+        })
+        programs = (p_1)
+        order = self.empty_order
+        self.iPadMini.taxes_id = self.tax_10pc_incl
+        sol1 = self.env['sale.order.line'].create({
+            'product_id': self.iPadMini.id,
+            'name': 'Large Cabinet',
+            'product_uom_qty': 3.0,
+            'order_id': order.id,
+        })
+
+        # I add delivery cost in Sales order
+        delivery_wizard = Form(self.env['choose.delivery.carrier'].with_context({
+            'default_order_id': order.id,
+            'default_carrier_id': self.carrier.id
+        }))
+        choose_delivery_carrier = delivery_wizard.save()
+        choose_delivery_carrier.button_confirm()
+        self._auto_rewards(order, programs)
+        self.assertEqual(len(order.order_line.ids), 2)
+        self.assertEqual(order.reward_amount, 0)
+        # Shipping is 20 + 15%tax
+        self.assertEqual(sum(line.price_total for line in order._get_no_effect_on_threshold_lines()), 23)
+        self.assertEqual(order.amount_untaxed, 872.73 + 20)
+
+        self._apply_promo_code(order, 'free_shipping')
+        self._auto_rewards(order, programs)
+        self.assertEqual(len(order.order_line.ids), 3, "We should get the delivery line and the free delivery since we are below 872.73$")
+        self.assertEqual(order.reward_amount, -20)
+        self.assertEqual(sum(line.price_total for line in order._get_no_effect_on_threshold_lines()), 0)
+        self.assertEqual(order.amount_untaxed, 872.73)
+
+        sol1.product_uom_qty = 1
+        self._auto_rewards(order, programs)
+        self.assertEqual(len(order.order_line.ids), 2, "We should loose the free delivery reward since we are above 872.73$")
+        self.assertEqual(order.reward_amount, 0)

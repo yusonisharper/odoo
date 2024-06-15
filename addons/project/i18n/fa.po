@@ -16,17 +16,19 @@
 # Hamid Darabi, 2023
 # Zahed Alfak <tamass4116@gmail.com>, 2023
 # Mohsen Mohammadi <iammohsen.123@gmail.com>, 2023
-# Hamed Mohammadi <hamed@dehongi.com>, 2023
 # Faraz Sadri Alamdari <ifarazir@gmail.com>, 2023
-# Hanna Kheradroosta, 2023
+# Abbas Ebadian, 2024
+# Hamed Mohammadi <hamed@dehongi.com>, 2024
+# Hanna Kheradroosta, 2024
+# Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 12:31+0000\n"
+"POT-Creation-Date: 2024-01-29 10:44+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Hanna Kheradroosta, 2023\n"
+"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -589,7 +591,7 @@ msgstr "دکوراسیون استثنایی فعالیت"
 #: model:ir.actions.act_window,name:project.mail_activity_plan_action_config_project_task_plan
 #: model:ir.ui.menu,name:project.mail_activity_plan_menu_config_project
 msgid "Activity Plans"
-msgstr ""
+msgstr "برنامه های فعالیت"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__activity_state
@@ -622,7 +624,7 @@ msgstr "اضافه کردن مرحله"
 #: model_terms:ir.actions.act_window,help:project.mail_activity_plan_action_config_project_task_plan
 #: model_terms:ir.actions.act_window,help:project.mail_activity_plan_action_config_task_plan
 msgid "Add a new plan"
-msgstr ""
+msgstr "ثبت یک برنامه جدید"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_share_wizard_view_form
@@ -693,12 +695,12 @@ msgstr "نام مستعار دامنه"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__alias_domain
 msgid "Alias Domain Name"
-msgstr ""
+msgstr "دامین مستعار"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__alias_full_name
 msgid "Alias Email"
-msgstr ""
+msgstr "ایمیل مستعار"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__alias_name
@@ -708,12 +710,12 @@ msgstr "نام مستعار"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__alias_status
 msgid "Alias Status"
-msgstr ""
+msgstr "وضعیت ایمیل مستعار"
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_project__alias_status
 msgid "Alias status assessed on the last message received."
-msgstr ""
+msgstr "وضعیت نام مستعار در آخرین پیام دریافتی ارزیابی شد."
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__alias_model_id
@@ -764,7 +766,7 @@ msgstr "حساب تحلیلی"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_res_config_settings__analytic_plan_id
 msgid "Analytic Plan"
-msgstr ""
+msgstr "طرح تحلیلی"
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_project__analytic_account_id
@@ -991,7 +993,7 @@ msgstr "آواتار"
 #: model:ir.model.fields,field_description:project.field_report_project_task_user__rating_avg
 #, python-format
 msgid "Average Rating"
-msgstr ""
+msgstr "رتبه‌ی متوسط"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__rating_avg_percentage
@@ -1231,7 +1233,7 @@ msgstr ""
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.portal_my_task
 msgid "Communication history"
-msgstr ""
+msgstr "تاریخچه ارتباطات"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__company_id
@@ -2913,6 +2915,13 @@ msgid "Next Activity"
 msgstr "فعالیت بعدی"
 
 #. module: project
+#: model:ir.model.fields,field_description:project.field_project_project__activity_calendar_event_id
+#: model:ir.model.fields,field_description:project.field_project_task__activity_calendar_event_id
+#: model:ir.model.fields,field_description:project.field_project_update__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "رویداد تقویم فعالیت بعدی"
+
+#. module: project
 #: model:ir.model.fields,field_description:project.field_project_project__activity_date_deadline
 #: model:ir.model.fields,field_description:project.field_project_task__activity_date_deadline
 #: model:ir.model.fields,field_description:project.field_project_update__activity_date_deadline
@@ -3069,7 +3078,7 @@ msgstr "تعداد خطاها"
 #: model:ir.model.fields,help:project.field_project_task__message_needaction_counter
 #: model:ir.model.fields,help:project.field_project_update__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "تعداد پیام هایی که نیاز به اقدام دارند"
 
 #. module: project
 #: model:ir.model.fields,help:project.field_project_milestone__message_has_error_counter
@@ -3704,7 +3713,7 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task__rating_avg_text
 msgid "Rating Avg Text"
-msgstr ""
+msgstr "متن میانگین رتبه‌بندی"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task_type__rating_template_id
@@ -3745,7 +3754,7 @@ msgstr "رتبه‌بندی رضایت"
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task__rating_last_text
 msgid "Rating Text"
-msgstr ""
+msgstr "متن رتبه‌بندی"
 
 #. module: project
 #. odoo-javascript
@@ -3880,7 +3889,7 @@ msgstr "پژوهش"
 #: model:account.analytic.account,name:project.analytic_research_development
 #: model:project.project,name:project.project_project_2
 msgid "Research & Development"
-msgstr ""
+msgstr "تحقیق و توسعه"
 
 #. module: project
 #. odoo-javascript
@@ -4311,7 +4320,7 @@ msgstr ""
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task__duration_tracking
 msgid "Status time"
-msgstr ""
+msgstr "زمان وضعیت"
 
 #. module: project
 #: model:ir.model.fields,field_description:project.field_project_task__subtask_count
@@ -5157,11 +5166,12 @@ msgstr ""
 msgid ""
 "Use these keywords in the title to set new tasks:\n"
 "\n"
-"            #tags Set tags on the task\n"
-"            @user Assign the task to a user\n"
-"            ! Set the task a high priority\n"
+"        30h Allocate 30 hours to the task\n"
+"        #tags Set tags on the task\n"
+"        @user Assign the task to a user\n"
+"        ! Set the task a high priority\n"
 "\n"
-"            Make sure to use the right format and order e.g. Improve the configuration screen #feature #v16 @Mitchell !"
+"        Make sure to use the right format and order e.g. Improve the configuration screen 5h #feature #v16 @Mitchell !"
 msgstr ""
 
 #. module: project
@@ -5537,7 +5547,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:project.edit_project
 #: model_terms:ir.ui.view,arch_db:project.project_project_view_form_simplified
 msgid "e.g. domain.com"
-msgstr ""
+msgstr "به طورمثال  domain.com"
 
 #. module: project
 #: model_terms:ir.ui.view,arch_db:project.project_project_view_form_simplified

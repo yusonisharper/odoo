@@ -43,13 +43,28 @@ class AccountEdiFormat(models.Model):
            + self.env.ref("l10n_in.tax_tag_non_gst_supplies").ids
         )
 
+    def _get_l10n_in_gst_tags(self):
+        return (
+           self.env.ref('l10n_in.tax_tag_base_sgst')
+           + self.env.ref('l10n_in.tax_tag_base_cgst')
+           + self.env.ref('l10n_in.tax_tag_base_igst')
+           + self.env.ref('l10n_in.tax_tag_base_cess')
+           + self.env.ref('l10n_in.tax_tag_zero_rated')
+        ).ids
+
+    def _get_l10n_in_non_taxable_tags(self):
+        return (
+           self.env.ref("l10n_in.tax_tag_exempt")
+           + self.env.ref("l10n_in.tax_tag_nil_rated")
+           + self.env.ref("l10n_in.tax_tag_non_gst_supplies")
+        ).ids
+
     def _get_move_applicability(self, move):
         # EXTENDS account_edi
         self.ensure_one()
         if self.code != 'in_einvoice_1_03':
             return super()._get_move_applicability(move)
-        all_base_tags = self._get_l10n_in_base_tags()
-        is_under_gst = any(move_line_tag.id in all_base_tags for move_line_tag in move.line_ids.tax_tag_ids)
+        is_under_gst = any(move_line_tag.id in self._get_l10n_in_gst_tags() for move_line_tag in move.line_ids.tax_tag_ids)
         if move.is_sale_document(include_receipts=True) and move.country_code == 'IN' and is_under_gst and move.l10n_in_gst_treatment in (
             "regular",
             "composition",
@@ -77,6 +92,9 @@ class AccountEdiFormat(models.Model):
         result = "".join(matches)
         return result
 
+    def _l10n_in_is_global_discount(self, line):
+        return not line.tax_ids and line.price_subtotal < 0 or False
+
     def _check_move_configuration(self, move):
         if self.code != "in_einvoice_1_03":
             return super()._check_move_configuration(move)
@@ -85,8 +103,8 @@ class AccountEdiFormat(models.Model):
         error_message += self._l10n_in_validate_partner(move.company_id.partner_id, is_company=True)
         if not re.match("^.{1,16}$", move.name):
             error_message.append(_("Invoice number should not be more than 16 characters"))
-        all_base_tags = self._get_l10n_in_base_tags()
-        for line in move.invoice_line_ids.filtered(lambda line: line.display_type not in ('line_note', 'line_section', 'rounding')):
+        all_base_tags = self._get_l10n_in_gst_tags() + self._get_l10n_in_non_taxable_tags()
+        for line in move.invoice_line_ids.filtered(lambda line: line.display_type not in ('line_note', 'line_section', 'rounding') and not self._l10n_in_is_global_discount(line)):
             if line.price_subtotal < 0:
                 # Line having a negative amount is not allowed.
                 if not move._l10n_in_edi_is_managing_invoice_negative_lines_allowed():
@@ -243,7 +261,7 @@ class AccountEdiFormat(models.Model):
             message.append(_("- Street2 should be min 3 and max 100 characters"))
         if not re.match("^.{3,100}$", partner.city or ""):
             message.append(_("- City required min 3 and max 100 characters"))
-        if not re.match("^.{3,50}$", partner.state_id.name or ""):
+        if partner.country_id.code == "IN" and not re.match("^.{3,50}$", partner.state_id.name or ""):
             message.append(_("- State required min 3 and max 50 characters"))
         if partner.country_id.code == "IN" and not re.match("^[0-9]{6,}$", partner.zip or ""):
             message.append(_("- Zip code required 6 digits"))
@@ -476,9 +494,12 @@ class AccountEdiFormat(models.Model):
         is_intra_state = invoice.l10n_in_state_id == invoice.company_id.state_id
         is_overseas = invoice.l10n_in_gst_treatment == "overseas"
         lines = invoice.invoice_line_ids.filtered(lambda line: line.display_type not in ('line_note', 'line_section', 'rounding'))
+        global_discount_line = lines.filtered(self._l10n_in_is_global_discount)
+        lines -= global_discount_line
         tax_details_per_record = tax_details.get("tax_details_per_record")
         sign = invoice.is_inbound() and -1 or 1
         rounding_amount = sum(line.balance for line in invoice.line_ids if line.display_type == 'rounding') * sign
+        global_discount_amount = sum(line.balance for line in global_discount_line) * sign * -1
         json_payload = {
             "Version": "1.1",
             "TranDtls": {
@@ -498,7 +519,7 @@ class AccountEdiFormat(models.Model):
                 for index, line in enumerate(lines, start=1)
             ],
             "ValDtls": {
-                "AssVal": self._l10n_in_round_value(tax_details.get("base_amount")),
+                "AssVal": self._l10n_in_round_value(tax_details.get("base_amount") + global_discount_amount),
                 "CgstVal": self._l10n_in_round_value(tax_details_by_code.get("cgst_amount", 0.00)),
                 "SgstVal": self._l10n_in_round_value(tax_details_by_code.get("sgst_amount", 0.00)),
                 "IgstVal": self._l10n_in_round_value(tax_details_by_code.get("igst_amount", 0.00)),
@@ -510,6 +531,7 @@ class AccountEdiFormat(models.Model):
                     tax_details_by_code.get("state_cess_amount", 0.00)
                     + tax_details_by_code.get("state_cess_non_advol_amount", 0.00)),
                 ),
+                "Discount": self._l10n_in_round_value(global_discount_amount),
                 "RndOffAmt": self._l10n_in_round_value(
                     rounding_amount),
                 "TotInvVal": self._l10n_in_round_value(
@@ -576,6 +598,9 @@ class AccountEdiFormat(models.Model):
                     for gst in ["cgst", "sgst", "igst"]:
                         if any(tag in tags for tag in self.env.ref("l10n_in.tax_tag_%s"%(gst))):
                             line_code = gst
+                        # need to separate rc tax value so it's not pass to other values
+                        if any(tag in tags for tag in self.env.ref("l10n_in.tax_tag_%s_rc" % (gst))):
+                            line_code = gst + '_rc'
             return {
                 "tax": tax,
                 "base_product_id": invl.product_id,

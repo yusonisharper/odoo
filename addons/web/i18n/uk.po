@@ -3,17 +3,18 @@
 # 	* web
 # 
 # Translators:
-# Martin Trigaux, 2023
-# Wil Odoo, 2023
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
+# Martin Trigaux, 2024
+# Wil Odoo, 2024
+# Kseina Tyshchenko, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 12:32+0000\n"
+"POT-Creation-Date: 2024-01-29 10:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023\n"
+"Last-Translator: Kseina Tyshchenko, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,7 +133,7 @@ msgstr "(поточний)"
 #: model_terms:ir.ui.view,arch_db:web.external_layout_standard
 #: model_terms:ir.ui.view,arch_db:web.external_layout_striped
 msgid "(document name)"
-msgstr ""
+msgstr "(назва документа)"
 
 #. module: web
 #. odoo-javascript
@@ -169,7 +170,7 @@ msgstr ""
 #: code:addons/web/static/src/views/calendar/filter_panel/calendar_filter_panel.js:0
 #, python-format
 msgid "+ Add %s"
-msgstr ""
+msgstr "+ Додати %s"
 
 #. module: web
 #. odoo-javascript
@@ -551,7 +552,7 @@ msgstr "9:30"
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.view_base_document_layout
 msgid "<i class=\"fa fa-repeat\"/> Reset"
-msgstr ""
+msgstr "<i class=\"fa fa-repeat\"/>Перезавантажити"
 
 #. module: web
 #: model_terms:ir.ui.view,arch_db:web.report_invoice_wizard_preview
@@ -973,7 +974,7 @@ msgstr "Додати спеціальну групу"
 #: code:addons/web/static/src/core/tree_editor/tree_editor.xml:0
 #, python-format
 msgid "Add New Rule"
-msgstr ""
+msgstr "Додати нове правило"
 
 #. module: web
 #. odoo-javascript
@@ -1024,14 +1025,14 @@ msgstr "Додати колонку"
 #: code:addons/web/static/src/views/fields/domain/domain_field.xml:0
 #, python-format
 msgid "Add condition"
-msgstr ""
+msgstr "Додати умову"
 
 #. module: web
 #. odoo-javascript
 #: code:addons/web/static/src/views/fields/datetime/datetime_field.xml:0
 #, python-format
 msgid "Add end date"
-msgstr ""
+msgstr "Додати кінцеву дату"
 
 #. module: web
 #. odoo-javascript
@@ -1045,7 +1046,16 @@ msgstr "Додайте контекст директиви qweb"
 #: code:addons/web/static/src/views/fields/datetime/datetime_field.xml:0
 #, python-format
 msgid "Add start date"
-msgstr ""
+msgstr "Додати початкову дату"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#, python-format
+msgid "Add to Favorites"
+msgstr "Додати до закладок"
 
 #. module: web
 #. odoo-javascript
@@ -1486,6 +1496,15 @@ msgstr ""
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/views/fields/statusbar/statusbar_field.js:0
+#, python-format
+msgid ""
+"Boolean field from the model used in the relation, which indicates whether "
+"the state is folded or not."
+msgstr ""
+
+#. module: web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/progress_bar/progress_bar_field.js:0
 #, python-format
 msgid ""
@@ -1799,12 +1818,12 @@ msgstr ""
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/core/datetime/datetime_picker_popover.xml:0
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #: code:addons/web/static/src/core/dialog/dialog.xml:0
 #: code:addons/web/static/src/core/dialog/dialog.xml:0
 #: code:addons/web/static/src/core/domain_selector_dialog/domain_selector_dialog.xml:0
-#: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
@@ -3403,6 +3422,16 @@ msgstr "Заголовок тексту відображається зверх�
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/model/relational_model/record.js:0
+#, python-format
+msgid ""
+"Heads up! Your recent changes are too large to save automatically. Please "
+"click the <i class=\"fa fa-cloud-upload fa-fw\"></i> button now to ensure "
+"your work is saved before you exit this tab."
+msgstr ""
+
+#. module: web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/many2many_tags/many2many_tags_field.xml:0
 #, python-format
 msgid "Hide in kanban"
@@ -3504,7 +3533,7 @@ msgstr "ILY"
 #: code:addons/web/static/src/views/fields/datetime/datetime_field.js:0
 #: code:addons/web/static/src/views/fields/datetime/datetime_field.js:0
 #, python-format
-msgid "ISO-formatted date (e.g. \"2018-12-31\") or \"today\"."
+msgid "ISO-formatted date (e.g. \"2018-12-31\") or \"%s\"."
 msgstr ""
 
 #. module: web
@@ -4484,7 +4513,7 @@ msgstr "Правила запису моделі"
 #: code:addons/web/static/src/views/fields/reference/reference_field.js:0
 #, python-format
 msgid "Model field"
-msgstr ""
+msgstr "Поле моделі"
 
 #. module: web
 #. odoo-javascript
@@ -4997,6 +5026,13 @@ msgstr "Неактивний стан"
 #, python-format
 msgid "Not active state, click to change it"
 msgstr "Неактивний стан, натисніть, щоб змінити його"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/many2many_binary/many2many_binary_field.js:0
+#, python-format
+msgid "Number of files"
+msgstr ""
 
 #. module: web
 #. odoo-javascript
@@ -5728,6 +5764,13 @@ msgstr "Гістограма прогресу"
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/views/view_components/column_progress.xml:0
+#, python-format
+msgid "Progress bar"
+msgstr "Гістограма прогресу"
+
+#. module: web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.js:0
 #, python-format
 msgid "Properties"
@@ -5875,11 +5918,9 @@ msgstr ""
 #: code:addons/web/static/src/core/confirmation_dialog/confirmation_dialog.js:0
 #, python-format
 msgid ""
-"Ready to make your record disappear into thin air? Are you sure?\n"
-"\n"
-"It will be gone forever!\n"
-"\n"
-"\n"
+"Ready to make your record disappear into thin air? Are you sure?\r\n"
+"It will be gone forever!\r\n"
+"\r\n"
 "Think twice before you click that 'Delete' button!"
 msgstr ""
 
@@ -6008,6 +6049,15 @@ msgstr "Вилучити властивість"
 #, python-format
 msgid "Remove field"
 msgstr "Вилучити поле"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#, python-format
+msgid "Remove from Favorites"
+msgstr "Видалити з вибраного"
 
 #. module: web
 #. odoo-javascript
@@ -6228,6 +6278,13 @@ msgstr "Зберегти і створити новий"
 #, python-format
 msgid "Save as:"
 msgstr "Зберегти як:"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/search/custom_favorite_item/custom_favorite_item.xml:0
+#, python-format
+msgid "Save current search"
+msgstr "Зберегти поточний пошук"
 
 #. module: web
 #. odoo-javascript
@@ -6817,6 +6874,7 @@ msgstr "T-shirt"
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/core/commands/command_items.xml:0
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.xml:0
 #, python-format
 msgid "TIP"
@@ -7004,12 +7062,12 @@ msgstr ""
 
 #. module: web
 #. odoo-javascript
-#: code:addons/web/static/src/core/errors/error_dialogs.xml:0
+#: code:addons/web/static/src/core/errors/scss_error_dialog.js:0
 #, python-format
 msgid ""
-"The style compilation failed, see the error below. This is an administrator "
-"or developer error that must be fixed for the entire database before "
-"continuing working."
+"The style compilation failed. This is an administrator or developer error "
+"that must be fixed for the entire database before continuing working. See "
+"browser console or server logs for details."
 msgstr ""
 
 #. module: web
@@ -8472,6 +8530,7 @@ msgstr "anchor"
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/core/commands/command_items.xml:0
 #: code:addons/web/static/src/core/domain_selector/utils.js:0
 #: code:addons/web/static/src/core/tree_editor/utils.js:0
 #, python-format
@@ -33450,6 +33509,13 @@ msgstr "zombie"
 #, python-format
 msgid "— press"
 msgstr "— натисніть"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/commands/command_items.xml:0
+#, python-format
+msgid "— search for"
+msgstr ""
 
 #. module: web
 #. odoo-javascript

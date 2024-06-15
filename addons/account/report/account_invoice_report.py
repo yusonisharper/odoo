@@ -108,7 +108,7 @@ class AccountInvoiceReport(models.Model):
                    0.0) * currency_table.rate                               AS price_average,
                 CASE
                     WHEN move.move_type NOT IN ('out_invoice', 'out_receipt') THEN 0.0
-                    ELSE -line.balance * currency_table.rate - (line.quantity / NULLIF(COALESCE(uom_line.factor, 1) / COALESCE(uom_template.factor, 1), 0.0)) * product_standard_price.value_float
+                    ELSE -line.balance * currency_table.rate - (line.quantity / NULLIF(COALESCE(uom_line.factor, 1) / COALESCE(uom_template.factor, 1), 0.0)) * COALESCE(product_standard_price.value_float, 0.0)
                 END
                                                                             AS price_margin,
                 line.quantity / NULLIF(COALESCE(uom_line.factor, 1) / COALESCE(uom_template.factor, 1), 0.0) * (CASE WHEN move.move_type IN ('out_invoice','in_refund','out_receipt') THEN -1 ELSE 1 END)
@@ -132,6 +132,7 @@ class AccountInvoiceReport(models.Model):
                 LEFT JOIN ir_property product_standard_price
                     ON product_standard_price.res_id = CONCAT('product.product,', product.id)
                     AND product_standard_price.name = 'standard_price'
+                    AND product_standard_price.company_id = line.company_id
                 JOIN {currency_table} ON currency_table.company_id = line.company_id
         '''.format(
             currency_table=self.env['res.currency']._get_query_currency_table(self.env.companies.ids, fields.Date.today())

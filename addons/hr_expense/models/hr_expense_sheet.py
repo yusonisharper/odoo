@@ -286,7 +286,7 @@ class HrExpenseSheet(models.Model):
             else:
                 sheet.selectable_payment_method_line_ids = self.env['account.payment.method.line'].search([
                     ('payment_type', '=', 'outbound'),
-                    ('company_id', '=', sheet.company_id.id)
+                    ('company_id', 'parent_of', sheet.company_id.id)
                 ])
 
     @api.depends('account_move_ids', 'payment_state', 'approval_state')
@@ -384,7 +384,7 @@ class HrExpenseSheet(models.Model):
     @api.depends_context('uid')
     @api.depends('employee_id', 'user_id', 'state')
     def _compute_is_editable(self):
-        is_hr_admin = self.user_has_groups('hr_expense.group_hr_expense_manager')
+        is_hr_admin = self.user_has_groups('hr_expense.group_hr_expense_manager,base.group_system')
         is_approver = self.user_has_groups('hr_expense.group_hr_expense_user')
         for sheet in self:
             if sheet.state not in {'draft', 'submit', 'approve'}:
@@ -392,7 +392,7 @@ class HrExpenseSheet(models.Model):
                 sheet.is_editable = False
                 continue
 
-            if is_hr_admin:
+            if is_hr_admin or self.env.su:
                 # Administrator-level users are not restricted
                 sheet.is_editable = True
                 continue
@@ -711,6 +711,7 @@ class HrExpenseSheet(models.Model):
             'ref': self.name,
             'move_type': 'in_invoice',
             'partner_id': self.employee_id.sudo().work_contact_id.id,
+            'partner_bank_id': self.employee_id.sudo().bank_account_id.id,
             'currency_id': self.currency_id.id,
             'line_ids': [Command.create(expense._prepare_move_lines_vals()) for expense in self.expense_line_ids],
             'attachment_ids': [

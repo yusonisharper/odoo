@@ -3,14 +3,16 @@
 # 	* web
 # 
 # Translators:
-# Wil Odoo, 2023
+# Khwunchai Jaengsawang <khwunchai.j@ku.th>, 2024
+# gsong <gsong2014@foxmail.com>, 2024
+# Wil Odoo, 2024
 # Rasareeyar Lappiam, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 12:32+0000\n"
+"POT-Creation-Date: 2024-01-29 10:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
@@ -818,7 +820,7 @@ msgstr "ABCD"
 #: code:addons/web/static/src/core/emoji_picker/emoji_data.js:0
 #, python-format
 msgid "AM"
-msgstr "AM"
+msgstr "น."
 
 #. module: web
 #. odoo-javascript
@@ -1047,6 +1049,15 @@ msgstr "เพิ่มบริบทของคำสั่ง qweb"
 #, python-format
 msgid "Add start date"
 msgstr "เพิ่มวันที่เริ่มต้น"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#, python-format
+msgid "Add to Favorites"
+msgstr "เพิ่มรายการโปรด"
 
 #. module: web
 #. odoo-javascript
@@ -1487,6 +1498,16 @@ msgstr "ไอคอนบูลีน"
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/views/fields/statusbar/statusbar_field.js:0
+#, python-format
+msgid ""
+"Boolean field from the model used in the relation, which indicates whether "
+"the state is folded or not."
+msgstr ""
+"ฟิลด์บูลีนจากแบบจำลองที่ใช้ในความสัมพันธ์ ซึ่งระบุว่าสถานะถูกพับหรือไม่"
+
+#. module: web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/progress_bar/progress_bar_field.js:0
 #, python-format
 msgid ""
@@ -1802,12 +1823,12 @@ msgstr "คลิกได้"
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/core/datetime/datetime_picker_popover.xml:0
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #: code:addons/web/static/src/core/debug/debug_menu_items.xml:0
 #: code:addons/web/static/src/core/dialog/dialog.xml:0
 #: code:addons/web/static/src/core/dialog/dialog.xml:0
 #: code:addons/web/static/src/core/domain_selector_dialog/domain_selector_dialog.xml:0
-#: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
 #: code:addons/web/static/src/core/errors/error_dialogs.xml:0
@@ -2733,7 +2754,7 @@ msgstr "วาด"
 #: code:addons/web/static/src/views/list/list_controller.js:0
 #, python-format
 msgid "Duplicate"
-msgstr "ทำซ้ำ"
+msgstr "คัดลอก"
 
 #. module: web
 #. odoo-javascript
@@ -3423,6 +3444,9 @@ msgid ""
 "click the <i class=\"fa fa-cloud-upload fa-fw\"></i> button now to ensure "
 "your work is saved before you exit this tab."
 msgstr ""
+"ระวัง! การเปลี่ยนแปลงล่าสุดของคุณมีขนาดใหญ่เกินกว่าจะบันทึกโดยอัตโนมัติ "
+"โปรดคลิกปุ่ม<i class=\"fa fa-cloud-upload fa-"
+"fw\"></i>ตอนนี้เพื่อให้แน่ใจว่างานของคุณได้รับการบันทึกไว้ก่อนที่คุณจะออกจากแท็บนี้"
 
 #. module: web
 #. odoo-javascript
@@ -3530,8 +3554,8 @@ msgstr "ILY"
 #: code:addons/web/static/src/views/fields/datetime/datetime_field.js:0
 #: code:addons/web/static/src/views/fields/datetime/datetime_field.js:0
 #, python-format
-msgid "ISO-formatted date (e.g. \"2018-12-31\") or \"today\"."
-msgstr "วันที่ในรูปแบบ ISO (เช่น \"2018-12-31\") หรือ \"วันนี้\""
+msgid "ISO-formatted date (e.g. \"2018-12-31\") or \"%s\"."
+msgstr "วันที่ในรูปแบบ ISO (เช่น \"2018-12-31\") หรือ \"%s\""
 
 #. module: web
 #. odoo-javascript
@@ -5034,6 +5058,13 @@ msgstr "สถานะไม่ใช้งาน คลิกเพื่อ�
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/views/fields/many2many_binary/many2many_binary_field.js:0
+#, python-format
+msgid "Number of files"
+msgstr "จำนวนไฟล์"
+
+#. module: web
+#. odoo-javascript
 #: code:addons/web/static/src/core/emoji_picker/emoji_data.js:0
 #: code:addons/web/static/src/core/emoji_picker/emoji_data.js:0
 #, python-format
@@ -5759,6 +5790,13 @@ msgstr "แถบความคืบหน้า"
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/views/view_components/column_progress.xml:0
+#, python-format
+msgid "Progress bar"
+msgstr "แถบความคืบหน้า"
+
+#. module: web
+#. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/properties_field.js:0
 #, python-format
 msgid "Properties"
@@ -5906,13 +5944,13 @@ msgstr "อ่านเท่านั้น:"
 #: code:addons/web/static/src/core/confirmation_dialog/confirmation_dialog.js:0
 #, python-format
 msgid ""
-"Ready to make your record disappear into thin air? Are you sure?\n"
-"It will be gone forever!\n"
-"\n"
+"Ready to make your record disappear into thin air? Are you sure?\r\n"
+"It will be gone forever!\r\n"
+"\r\n"
 "Think twice before you click that 'Delete' button!"
 msgstr ""
-"พร้อมที่จะทำให้บันทึกของคุณหายไปแล้วหรือยัง? คุณแน่ใจไหม?\n"
-"บันทึกจะหายไปตลอดกาล!\n"
+"พร้อมที่จะทำให้บันทึกของคุณหายไปในอากาศแล้วหรือยัง? แน่ใจเหรอ?\r\n"
+"มันจะหายไปตลอดกาล!\r\n"
 "\n"
 "คิดให้ดีก่อนคลิกปุ่ม 'ลบ'!"
 
@@ -6041,6 +6079,15 @@ msgstr "ลบคุณสมบัติ"
 #, python-format
 msgid "Remove field"
 msgstr "นำฟิลด์ออก"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#: code:addons/web/static/src/views/fields/boolean_favorite/boolean_favorite_field.xml:0
+#, python-format
+msgid "Remove from Favorites"
+msgstr "ลบออกจากรายการโปรด"
 
 #. module: web
 #. odoo-javascript
@@ -6261,6 +6308,13 @@ msgstr "บันทึกและสร้างใหม่"
 #, python-format
 msgid "Save as:"
 msgstr "บันทึกเป็น:"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/search/custom_favorite_item/custom_favorite_item.xml:0
+#, python-format
+msgid "Save current search"
+msgstr "บันทึกการค้นหาปัจจุบัน"
 
 #. module: web
 #. odoo-javascript
@@ -6852,6 +6906,7 @@ msgstr "เสื้อเชิ้ต"
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/core/commands/command_items.xml:0
 #: code:addons/web/static/src/webclient/user_menu/user_menu_items.xml:0
 #, python-format
 msgid "TIP"
@@ -7045,18 +7100,9 @@ msgid ""
 "that must be fixed for the entire database before continuing working. See "
 "browser console or server logs for details."
 msgstr ""
-
-#. module: web
-#. odoo-javascript
-#: code:addons/web/static/src/core/errors/error_dialogs.xml:0
-#, python-format
-msgid ""
-"The style compilation failed, see the error below. This is an administrator "
-"or developer error that must be fixed for the entire database before "
-"continuing working."
-msgstr ""
-"การรวบรวมสไตล์ล้มเหลว ดูข้อผิดพลาดด้านล่าง "
-"นี่เป็นข้อผิดพลาดของผู้ดูแลระบบหรือนักพัฒนาที่ต้องแก้ไขสำหรับฐานข้อมูลทั้งหมดก่อนที่จะดำเนินการต่อ"
+"การรวบรวมสไตล์ล้มเหลว "
+"นี่เป็นข้อผิดพลาดของผู้ดูแลระบบหรือนักพัฒนาที่ต้องแก้ไขสำหรับฐานข้อมูลทั้งหมดก่อนที่จะทำงานต่อ"
+" ดูคอนโซลของเบราว์เซอร์หรือบันทึกเซิร์ฟเวอร์เพื่อดูรายละเอียดเพิ่มเติม"
 
 #. module: web
 #. odoo-python
@@ -8519,6 +8565,7 @@ msgstr "สมอ"
 
 #. module: web
 #. odoo-javascript
+#: code:addons/web/static/src/core/commands/command_items.xml:0
 #: code:addons/web/static/src/core/domain_selector/utils.js:0
 #: code:addons/web/static/src/core/tree_editor/utils.js:0
 #, python-format
@@ -27737,7 +27784,7 @@ msgstr "ถุงช้อปปิ้ง"
 #: code:addons/web/static/src/core/emoji_picker/emoji_data.js:0
 #, python-format
 msgid "shopping cart"
-msgstr "รถเข็นสินค้า"
+msgstr "ตะกร้าสินค้า"
 
 #. module: web
 #. odoo-javascript
@@ -33497,6 +33544,13 @@ msgstr "ซอมบี้"
 #, python-format
 msgid "— press"
 msgstr "— กด"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/commands/command_items.xml:0
+#, python-format
+msgid "— search for"
+msgstr "— ค้นหา"
 
 #. module: web
 #. odoo-javascript

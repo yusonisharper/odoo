@@ -137,6 +137,13 @@ class StockPicking(models.Model):
 
         return res
 
+    def _create_backorder(self):
+        for picking in self:
+            # Avoid inconsistencies in states of the same batch when validating a single picking in a batch.
+            if picking.batch_id and picking.state != 'done':
+                picking.batch_id = None
+        return super()._create_backorder()
+
     def action_cancel(self):
         res = super().action_cancel()
         for picking in self:
@@ -232,6 +239,11 @@ class StockPicking(models.Model):
 
         return domain
 
+    def _package_move_lines(self, batch_pack=False):
+        if batch_pack:
+            return super(StockPicking, self.batch_id.picking_ids if self.batch_id else self)._package_move_lines(batch_pack)
+        return super()._package_move_lines(batch_pack)
+
     def assign_batch_user(self, user_id):
         if not user_id:
             return
@@ -240,9 +252,6 @@ class StockPicking(models.Model):
         for pick in pickings:
             log_message = _('Assigned to %s Responsible', pick.batch_id._get_html_link())
             pick.message_post(body=log_message)
-
-    def _package_move_lines(self):
-        return super(StockPicking, self.batch_id.picking_ids if self.batch_id else self)._package_move_lines()
 
     def action_view_batch(self):
         self.ensure_one()

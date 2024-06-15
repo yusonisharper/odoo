@@ -11,6 +11,9 @@
 # Martin Trigaux, 2023
 # Hamed Mohammadi <hamed@dehongi.com>, 2023
 # Mohsen Mohammadi <iammohsen.123@gmail.com>, 2023
+# Abbas Ebadian, 2024
+# pfp pfp <pfpour@yahoo.com>, 2024
+# Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # Hanna Kheradroosta, 2024
 # 
 msgid ""
@@ -72,7 +75,7 @@ msgstr ""
 #. module: repair
 #: model_terms:ir.ui.view,arch_db:repair.view_repair_order_form
 msgid "<span class=\"o_stat_text\">Sale Order</span>"
-msgstr ""
+msgstr "1 سفارش فروش 1"
 
 #. module: repair
 #: model_terms:ir.ui.view,arch_db:repair.stock_production_lot_view_form
@@ -425,7 +428,7 @@ msgstr ""
 #. module: repair
 #: model_terms:ir.ui.view,arch_db:repair.view_repair_order_form
 msgid "Forecast Report"
-msgstr ""
+msgstr "گزارش پیش بینی"
 
 #. module: repair
 #: model_terms:ir.ui.view,arch_db:repair.view_repair_order_form
@@ -704,7 +707,7 @@ msgstr "تعداد خطاها"
 #. module: repair
 #: model:ir.model.fields,help:repair.field_repair_order__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "تعداد پیام هایی که نیاز به اقدام دارند"
 
 #. module: repair
 #: model:ir.model.fields,help:repair.field_repair_order__message_has_error_counter
@@ -779,7 +782,7 @@ msgstr "محصول"
 #. module: repair
 #: model_terms:ir.ui.view,arch_db:repair.report_repairorder
 msgid "Product A"
-msgstr ""
+msgstr "محصول A"
 
 #. module: repair
 #: model_terms:ir.ui.view,arch_db:repair.report_repairorder

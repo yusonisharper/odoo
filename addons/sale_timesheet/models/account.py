@@ -28,7 +28,7 @@ class AccountAnalyticLine(models.Model):
     so_line = fields.Many2one(compute="_compute_so_line", store=True, readonly=False,
         domain="""[
             ('qty_delivered_method', 'in', ['analytic', 'timesheet']),
-            ('order_partner_id', '=', commercial_partner_id),
+            ('order_partner_id.commercial_partner_id', '=', commercial_partner_id),
             ('is_service', '=', True),
             ('is_expense', '=', False),
             ('state', '=', 'sale')
@@ -163,7 +163,9 @@ class AccountAnalyticLine(models.Model):
             ('timesheet_invoice_type', 'in', ['billable_time', 'non_billable']),
             '&',
             ('timesheet_invoice_type', '=', 'billable_fixed'),
-            ('so_line', 'in', order_lines_ids.ids)
+                '&',
+                ('so_line', 'in', order_lines_ids.ids),
+                ('timesheet_invoice_id', '=', False),
         ]
 
     def _get_timesheets_to_merge(self):
@@ -207,3 +209,10 @@ class AccountAnalyticLine(models.Model):
             'context': {'create': False},
             'res_id': self.timesheet_invoice_id.id,
         }
+
+    def _timesheet_convert_sol_uom(self, sol, to_unit):
+        to_uom = self.env.ref(to_unit)
+        return round(sol.product_uom._compute_quantity(sol.product_uom_qty, to_uom, raise_if_failure=False), 2)
+
+    def _is_updatable_timesheet(self):
+        return super()._is_updatable_timesheet and self._is_not_billed()

@@ -21,7 +21,7 @@ from odoo.tools import mute_logger
 BASE_64_STRING = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='
 
 
-@tagged('mass_mailing')
+@tagged("mass_mailing")
 class TestMassMailValues(MassMailCommon):
 
     @classmethod
@@ -314,6 +314,68 @@ class TestMassMailValues(MassMailCommon):
         self.assertEqual(literal_eval(mailing.mailing_domain), [('email', 'ilike', 'test.example.com')])
 
     @users('user_marketing')
+    def test_mailing_computed_fields_default_email_from(self):
+        # Testing if the email_from is correctly computed when an
+        # alias domain for the company is set
+
+        # Setup mail outgoing server for use cases
+
+        from_filter_match, from_filter_missmatch = self.env['ir.mail_server'].sudo().create([
+            # Case where alias domain is set and there is a default outgoing email server
+            # for mass mailing. from_filter matches domain of company alias domain
+            # before record creation
+            {
+                    'name' : 'mass_mailing_test_match_from_filter',
+                    'from_filter' : self.alias_domain,
+                    'smtp_host' : 'not_real@smtp.com',
+            },
+            # Case where alias domain is set and there is a default outgoing email server
+            # for mass mailing. from_filter DOES NOT match domain of company alias domain
+            # before record creation
+            {
+                    'name' : 'mass_mailing_test_from_missmatch',
+                    'from_filter' : 'test.com',
+                    'smtp_host' : 'not_real@smtp.com',
+            },
+        ])
+
+        # Expected combos of server vs FROM values
+
+        servers = [
+            self.env['ir.mail_server'],
+            from_filter_match,
+            from_filter_missmatch,
+        ]
+        expected_from_all = [
+            self.env.user.email_formatted,  # default when no server
+            self.env.user.company_id.alias_domain_id.default_from_email,  # matches company alias domain
+            self.env.user.email_formatted,  # not matching from filter -> back to user from
+        ]
+
+        for mail_server, expected_from in zip(servers, expected_from_all):
+            with self.subTest(server_name=mail_server.name):
+                # When a mail server is set, we update the mass mailing
+                # settings to designate a dedicated outgoing email server
+                if mail_server:
+                    self.env['res.config.settings'].sudo().create({
+                        'mass_mailing_mail_server_id' : mail_server.id,
+                        'mass_mailing_outgoing_mail_server' : mail_server,
+                    }).execute()
+
+                # Create mailing
+                mailing = self.env['mailing.mailing'].create({
+                    'name': f'TestMailing {mail_server.name}',
+                    'subject': f'Test {mail_server.name}',
+                })
+
+                # Check email_from
+                self.assertEqual(mailing.email_from, expected_from)
+
+                # If configured, check if dedicated email outgoing server is
+                # on mailing record
+                self.assertEqual(mailing.mail_server_id, mail_server)
+
+    @users('user_marketing')
     def test_mailing_computed_fields_form(self):
         mailing_form = Form(self.env['mailing.mailing'].with_context(
             default_mailing_domain="[('email', 'ilike', 'test.example.com')]",
@@ -359,6 +421,10 @@ class TestMassMailValues(MassMailCommon):
             activity.write({'res_id': 0})
             self.env.flush_all()
 
+
+@tagged("mass_mailing", "utm")
+class TestMassMailUTM(MassMailCommon):
+
     @freeze_time('2022-01-02')
     @patch.object(Cursor, 'now', lambda *args, **kwargs: datetime(2022, 1, 2))
     @users('user_marketing')
@@ -369,6 +435,7 @@ class TestMassMailValues(MassMailCommon):
         that this generated name is unique.
         """
         mailing_0 = self.env['mailing.mailing'].create({'subject': 'First subject'})
+        self.assertEqual(mailing_0.name, 'First subject (Mass Mailing created on 2022-01-02)')
 
         mailing_1, mailing_2, mailing_3, mailing_4, mailing_5, mailing_6 = self.env['mailing.mailing'].create([{
             'subject': 'First subject',
@@ -395,13 +462,20 @@ class TestMassMailValues(MassMailCommon):
         self.assertEqual(mailing_5.name, 'Mailing [2]')
         self.assertEqual(mailing_6.name, 'Second subject (Mass Mailing created on 2022-01-02)')
 
+        # should generate same name (coming from same subject)
         mailing_0.subject = 'First subject'
-        self.assertEqual(mailing_0.name, 'First subject (Mass Mailing created on 2022-01-02) [4]',
-            msg='The name must have been re-generated')
+        self.assertEqual(mailing_0.name, 'First subject (Mass Mailing created on 2022-01-02)',
+            msg='The name should not be updated')
 
+        # take a (long) existing name -> should increment
         mailing_0.name = 'Second subject (Mass Mailing created on 2022-01-02)'
         self.assertEqual(mailing_0.name, 'Second subject (Mass Mailing created on 2022-01-02) [2]',
-            msg='The name must be unique')
+            msg='The name must be unique, it was already taken')
+
+        # back to first subject: not linked to any record so should take it back
+        mailing_0.subject = 'First subject'
+        self.assertEqual(mailing_0.name, 'First subject (Mass Mailing created on 2022-01-02)',
+            msg='The name should be back to first one')
 
 
 @tagged('mass_mailing')

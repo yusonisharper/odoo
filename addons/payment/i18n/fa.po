@@ -5,7 +5,7 @@
 # Translators:
 # Mohsen Mohammadi <iammohsen.123@gmail.com>, 2023
 # F Hariri <fhari1234@gmail.com>, 2023
-# fardin mardani, 2023
+# fardin mardani <fmardani0@gmail.com>, 2023
 # Mohammad Tahmasebi <hit.tah75@gmail.com>, 2023
 # Ali Reza Feizi Derakhshi, 2023
 # odooers ir, 2023
@@ -13,16 +13,18 @@
 # M.Hossein S.Farvashani <Farvashani@gmail.com>, 2023
 # Yousef Shadmanesh <y.shadmanesh@gmail.com>, 2023
 # Hamed Mohammadi <hamed@dehongi.com>, 2023
-# Hanna Kheradroosta, 2023
 # Martin Trigaux, 2023
+# Abbas Ebadian, 2024
+# Hanna Kheradroosta, 2024
+# Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 13:53+0000\n"
+"POT-Creation-Date: 2024-01-29 10:45+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -150,6 +152,9 @@ msgid ""
 "                                If you believe that it is an error, please contact the website\n"
 "                                administrator."
 msgstr ""
+"<strong>نمی‌توان هیچ روش پرداخت مناسبی را یافت.</strong><br/>\n"
+"                                If you believe that it is an error, please contact the website\n"
+"                                administrator."
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_capture_wizard_view_form
@@ -183,12 +188,12 @@ msgstr ""
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.pay
 msgid "<strong>Warning</strong> The currency is missing or incorrect."
-msgstr ""
+msgstr "<strong>Warning</strong> ارز موردنظر موجود نیست یا نادرست است."
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.pay
 msgid "<strong>Warning</strong> You must be logged in to pay."
-msgstr ""
+msgstr "<strong>Warning</strong> برای پرداخت باید وارد سیستم شوید."
 
 #. module: payment
 #. odoo-python
@@ -664,7 +669,7 @@ msgstr ""
 #. module: payment
 #: model:payment.provider,name:payment.payment_provider_demo
 msgid "Demo"
-msgstr ""
+msgstr "آزمایشی"
 
 #. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_provider__state__disabled
@@ -752,7 +757,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:payment.selection__payment_provider__support_manual_capture__full_only
 #: model:ir.model.fields.selection,name:payment.selection__payment_provider__support_refund__full_only
 msgid "Full Only"
-msgstr ""
+msgstr "فقط کامل"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_link_wizard_view_form
@@ -836,6 +841,8 @@ msgid ""
 "In test mode, a fake payment is processed through a test payment interface.\n"
 "This mode is advised when setting up the provider."
 msgstr ""
+"در حالت آزمایشی، یک پرداخت جعلی از طریق رابط پرداخت آزمایشی پردازش می‌شود. \n"
+"این حالت هنگام تعیین ارائه‌دهنده‌ی خدمات توصیه می‌شود."
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_provider__inline_form_view_id
@@ -1037,12 +1044,12 @@ msgstr ""
 #. module: payment
 #: model:ir.model,name:payment.model_onboarding_onboarding_step
 msgid "Onboarding Step"
-msgstr ""
+msgstr "مراحل معارفه سازمانی"
 
 #. module: payment
 #: model:onboarding.onboarding.step,step_image_alt:payment.onboarding_onboarding_step_payment_provider
 msgid "Onboarding Step Image"
-msgstr ""
+msgstr "بارگذاری تصویر مرحله"
 
 #. module: payment
 #: model:onboarding.onboarding.step,title:payment.onboarding_onboarding_step_payment_provider
@@ -1361,7 +1368,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment.field_payment_method__provider_ids
 #: model_terms:ir.ui.view,arch_db:payment.payment_method_form
 msgid "Providers"
-msgstr ""
+msgstr "ارائه‌دهندگان"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_provider__is_published
@@ -1444,7 +1451,7 @@ msgstr ""
 #. module: payment
 #: model:payment.provider,name:payment.payment_provider_sepa_direct_debit
 msgid "SEPA Direct Debit"
-msgstr ""
+msgstr "برداشت مستقیم SEPA"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.form
@@ -1609,7 +1616,7 @@ msgstr "حالت آزمایشی"
 #: code:addons/payment/controllers/portal.py:0
 #, python-format
 msgid "The access token is invalid."
-msgstr ""
+msgstr "توکن دسترسی نامعتبر است."
 
 #. module: payment
 #. odoo-python
@@ -1871,7 +1878,7 @@ msgstr ""
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.pay
 msgid "There is nothing to pay."
-msgstr ""
+msgstr "هیچ موردی برای پرداخت وجود ندارد."
 
 #. module: payment
 #. odoo-python
@@ -1968,7 +1975,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:payment.field_payment_method__support_refund
 #: model:ir.model.fields,field_description:payment.field_payment_provider__support_refund
 msgid "Type of Refund Supported"
-msgstr ""
+msgstr "نوع بازپرداختی که پشتیبانی می‌شود"
 
 #. module: payment
 #. odoo-javascript
@@ -2069,6 +2076,20 @@ msgid "Wire Transfer"
 msgstr ""
 
 #. module: payment
+#: model:payment.provider,name:payment.payment_provider_xendit
+msgid "Xendit"
+msgstr ""
+
+#. module: payment
+#. odoo-python
+#: code:addons/payment/models/payment_provider.py:0
+#, python-format
+msgid ""
+"You cannot change the company of a payment provider with existing "
+"transactions."
+msgstr ""
+
+#. module: payment
 #. odoo-python
 #: code:addons/payment/models/payment_provider.py:0
 #, python-format
@@ -2116,6 +2137,7 @@ msgstr ""
 #: model_terms:payment.provider,auth_msg:payment.payment_provider_sips
 #: model_terms:payment.provider,auth_msg:payment.payment_provider_stripe
 #: model_terms:payment.provider,auth_msg:payment.payment_provider_transfer
+#: model_terms:payment.provider,auth_msg:payment.payment_provider_xendit
 #, python-format
 msgid "Your payment has been authorized."
 msgstr "این پرداخت مجاز است."
@@ -2138,6 +2160,7 @@ msgstr "این پرداخت مجاز است."
 #: model_terms:payment.provider,cancel_msg:payment.payment_provider_sips
 #: model_terms:payment.provider,cancel_msg:payment.payment_provider_stripe
 #: model_terms:payment.provider,cancel_msg:payment.payment_provider_transfer
+#: model_terms:payment.provider,cancel_msg:payment.payment_provider_xendit
 #, python-format
 msgid "Your payment has been cancelled."
 msgstr "پرداخت شما لغو شده است."
@@ -2159,6 +2182,7 @@ msgstr "پرداخت شما لغو شده است."
 #: model_terms:payment.provider,pending_msg:payment.payment_provider_sepa_direct_debit
 #: model_terms:payment.provider,pending_msg:payment.payment_provider_sips
 #: model_terms:payment.provider,pending_msg:payment.payment_provider_stripe
+#: model_terms:payment.provider,pending_msg:payment.payment_provider_xendit
 #, python-format
 msgid ""
 "Your payment has been successfully processed but is waiting for approval."
@@ -2182,6 +2206,7 @@ msgstr "پرداخت شما با موفقیت انجام شد اما در انت
 #: model_terms:payment.provider,done_msg:payment.payment_provider_sips
 #: model_terms:payment.provider,done_msg:payment.payment_provider_stripe
 #: model_terms:payment.provider,done_msg:payment.payment_provider_transfer
+#: model_terms:payment.provider,done_msg:payment.payment_provider_xendit
 #, python-format
 msgid "Your payment has been successfully processed."
 msgstr ""

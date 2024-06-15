@@ -106,7 +106,7 @@ class AccountMove(models.Model):
 
     def _l10n_es_edi_facturae_get_refunded_invoices(self):
         self.env['account.partial.reconcile'].flush_model()
-        invoices_refunded_mapping = {invoice.id: invoice.reversed_entry_id for invoice in self}
+        invoices_refunded_mapping = {invoice.id: invoice.reversed_entry_id.id for invoice in self}
 
         queries = []
         for source_field, counterpart_field in (('debit', 'credit'), ('credit', 'debit')):
@@ -137,6 +137,11 @@ class AccountMove(models.Model):
     def _l10n_es_edi_facturae_get_corrective_data(self):
         self.ensure_one()
         if self.move_type.endswith('refund'):
+            if not self.reversed_entry_id:
+                raise UserError(_("The credit note/refund appears to have been issued manually. For the purpose of "
+                                  "generating a Facturae document, it's necessary that the credit note/refund is created "
+                                  "directly from the associated invoice/bill."))
+
             refunded_invoice = self.env['account.move'].browse(self._l10n_es_edi_facturae_get_refunded_invoices()[self.id])
             tax_period = refunded_invoice._l10n_es_edi_facturae_get_tax_period()
 
@@ -170,6 +175,28 @@ class AccountMove(models.Model):
                 "EquivalentInEuros": abs(computed_tax_dict["tax_amount"]),
             },
         }
+
+    def _l10n_es_edi_facturae_convert_payment_terms_to_installments(self):
+        """
+        Convert the payments terms to a list of <Installment> elements to be used in the
+        <PaymentDetails> node of the Facturae XML generation.
+
+        For now we only use the hardcoded '04' value (Credit Transfer).
+        """
+        self.ensure_one()
+        installments = []
+        if self.is_inbound() and self.partner_bank_id:
+            for payment_term in self.line_ids.filtered(lambda l: l.display_type == 'payment_term').sorted('date_maturity'):
+                installments.append({
+                    'InstallmentDueDate': payment_term.date_maturity,
+                    'InstallmentAmount': payment_term.amount_residual_currency,
+                    'PaymentMeans': '04',  # Credit Transfer
+                    'AccountToBeCredited': {
+                        'IBAN': self.partner_bank_id.sanitized_acc_number,
+                        'BIC': self.partner_bank_id.bank_bic,
+                    },
+                })
+        return installments
 
     def _l10n_es_edi_facturae_inv_lines_to_items(self, conversion_rate=None):
         """
@@ -227,18 +254,20 @@ class AccountMove(models.Model):
             totals['total_taxes_withheld'] += sum((abs(tax["tax_amount"]) for tax in taxes_withheld_computed))
 
             invoice_line_values.update({
+                'FileReference': self._l10n_es_edi_facturae_get_filename().split('.')[0][:20],
+                'FileDate': fields.Date.context_today(self),
                 'ItemDescription': line.name,
                 'Quantity': line.quantity,
                 'UnitOfMeasure': line.product_uom_id.l10n_es_edi_facturae_uom_code,
                 'UnitPriceWithoutTax': line.currency_id.round(price_before_discount / line.quantity if line.quantity else 0.),
                 'TotalCost': price_before_discount,
                 'DiscountsAndRebates': [{
-                    'DiscountReason': '',
+                    'DiscountReason': '/',
                     'DiscountRate': f'{line.discount:.2f}',
                     'DiscountAmount': discount
                 }, ] if discount != 0. else [],
                 'Charges': [{
-                    'ChargeReason': '',
+                    'ChargeReason': '/',
                     'ChargeRate': f'{max(0, -line.discount):.2f}',
                     'ChargeAmount': surcharge,
                 }, ] if surcharge != 0. else [],
@@ -353,7 +382,7 @@ class AccountMove(models.Model):
                 } if totals['amounts_withheld'] else False,
                 'TotalExecutableAmount': total_exec_am_in_currency,
                 'Items': items,
-                'PaymentDetails': [],
+                'PaymentDetails': self._l10n_es_edi_facturae_convert_payment_terms_to_installments(),
                 'LegalLiterals': legal_literals,
             }],
         }

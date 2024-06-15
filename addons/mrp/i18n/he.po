@@ -4,7 +4,6 @@
 # 
 # Translators:
 # Ofir Blum <ofir.blum@gmail.com>, 2023
-# MichaelHadar, 2023
 # shaked <shaked@laylinetech.com>, 2023
 # Moshe Flam <pashute@gmail.com>, 2023
 # שהאב חוסיין <shhab89@gmail.com>, 2023
@@ -26,8 +25,9 @@
 # hed shefer <hed@laylinetech.com>, 2023
 # Yihya Hugirat <hugirat@gmail.com>, 2023
 # דודי מלכה <Dudimalka6@gmail.com>, 2023
-# yael terner, 2023
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
+# yael terner, 2024
+# MichaelHadar, 2024
 # Roy Sayag, 2024
 # 
 msgid ""
@@ -42,7 +42,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: he\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_production__state
@@ -343,7 +343,7 @@ msgstr "<span class=\"o_stat_text\">פעולות<br/>ביצועים</span>"
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
 msgid "<span class=\"o_stat_text\">Overview</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">סקירה כללית</span>"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_workcenter_view
@@ -799,6 +799,11 @@ msgstr "העבר פעולה לארכיון"
 #: model_terms:ir.ui.view,arch_db:mrp.view_mrp_workcenter_search
 msgid "Archived"
 msgstr "בארכיון"
+
+#. module: mrp
+#: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
+msgid "Are you sure you want to cancel this manufacturing order?"
+msgstr ""
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrporder
@@ -4185,12 +4190,12 @@ msgstr "קבוצת רכש"
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
 msgid "Produce"
-msgstr ""
+msgstr "ייצר"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
 msgid "Produce All"
-msgstr ""
+msgstr "בצע ייצור"
 
 #. module: mrp
 #: model:res.groups,name:mrp.group_mrp_byproducts
@@ -4587,7 +4592,7 @@ msgstr "מוכן"
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_bom
 #, python-format
 msgid "Ready to Produce"
-msgstr ""
+msgstr "מוכן לייצור"
 
 #. module: mrp
 #. odoo-javascript
@@ -4772,6 +4777,12 @@ msgstr "מסלול"
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_bom_form_view
 msgid "Routing"
 msgstr "ניתוב"
+
+#. module: mrp
+#: code:addons/mrp/models/stock_quant.py:0
+#, python-format
+msgid "Return to Inventory"
+msgstr ""
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_workcenter__routing_line_ids
@@ -5034,7 +5045,7 @@ msgstr ""
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_production__show_produce_all
 msgid "Show Produce All"
-msgstr ""
+msgstr "הצג בצע ייצור"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_unbuild_search_view
@@ -5088,13 +5099,6 @@ msgid ""
 msgstr ""
 "חלק מהרכיבים שלך נמצאים במעקב, אתה צריך לציין הוראת ייצור כדי לאחזר את "
 "הרכיבים הנכונים."
-
-#. module: mrp
-#: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
-msgid ""
-"Some product moves have already been confirmed, this manufacturing order "
-"can't be completely cancelled. Are you still sure you want to process?"
-msgstr ""
 
 #. module: mrp
 #. odoo-python
@@ -6847,6 +6851,15 @@ msgid "You should provide a lot number for the final product."
 msgstr "אתה צריך לספק מספר אצווה עבור המוצר המוגמר."
 
 #. module: mrp
+#. odoo-python
+#: code:addons/mrp/models/stock_quant.py:0
+#, python-format
+msgid ""
+"You should update the components quantity instead of directly updating the "
+"quantity of the kit product."
+msgstr ""
+
+#. module: mrp
 #: model:ir.model.fields.selection,name:mrp.selection__stock_picking_type__done_mrp_lot_label_to_print__zpl
 #: model:ir.model.fields.selection,name:mrp.selection__stock_picking_type__generated_mrp_lot_label_to_print__zpl
 #: model:ir.model.fields.selection,name:mrp.selection__stock_picking_type__mrp_product_label_to_print__zpl
@@ -6902,7 +6915,7 @@ msgstr ""
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_routing_workcenter_form_view
 msgid "last"
-msgstr "אחרון"
+msgstr " "
 
 #. module: mrp
 #. odoo-python
@@ -6968,4 +6981,4 @@ msgstr ""
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_routing_workcenter_form_view
 msgid "work orders"
-msgstr "הוראות עבודה"
+msgstr "הוראות העבודה האחרונות"

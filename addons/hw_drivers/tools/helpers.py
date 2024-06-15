@@ -199,13 +199,15 @@ def generate_password():
     """
     alphabet = 'abcdefghijkmnpqrstuvwxyz23456789'
     password = ''.join(secrets.choice(alphabet) for i in range(12))
-    shadow_password = crypt.crypt(password, crypt.mksalt())
-    subprocess.call(('sudo', 'usermod', '-p', shadow_password, 'pi'))
-
-    with writable():
-        subprocess.call(('sudo', 'cp', '/etc/shadow', '/root_bypass_ramdisks/etc/shadow'))
-
-    return password
+    try:
+        shadow_password = crypt.crypt(password, crypt.mksalt())
+        subprocess.run(('sudo', 'usermod', '-p', shadow_password, 'pi'), check=True)
+        with writable():
+            subprocess.run(('sudo', 'cp', '/etc/shadow', '/root_bypass_ramdisks/etc/shadow'), check=True)
+        return password
+    except subprocess.CalledProcessError as e:
+        _logger.error("Failed to generate password: %s", e.output)
+        return 'Error: Check IoT log'
 
 
 def get_certificate_status(is_first=True):
@@ -339,6 +341,22 @@ def load_certificate():
         start_nginx_server()
     return True
 
+def delete_iot_handlers():
+    """
+    Delete all the drivers and interfaces
+    This is needed to avoid conflicts
+    with the newly downloaded drivers
+    """
+    try:
+        for directory in ['drivers', 'interfaces']:
+            path = file_path(f'hw_drivers/iot_handlers/{directory}')
+            iot_handlers = list_file_by_os(path)
+            for file in iot_handlers:
+                unlink_file(f"odoo/addons/hw_drivers/iot_handlers/{directory}/{file}")
+        _logger.info("Deleted old IoT handlers")
+    except OSError:
+        _logger.exception('Failed to delete old IoT handlers')
+
 def download_iot_handlers(auto=True):
     """
     Get the drivers from the configured Odoo server
@@ -351,6 +369,7 @@ def download_iot_handlers(auto=True):
         try:
             resp = pm.request('POST', server, fields={'mac': get_mac_address(), 'auto': auto}, timeout=8)
             if resp.data:
+                delete_iot_handlers()
                 with writable():
                     drivers_path = ['odoo', 'addons', 'hw_drivers', 'iot_handlers']
                     path = path_file(str(Path().joinpath(*drivers_path)))

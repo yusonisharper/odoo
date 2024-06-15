@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 12:32+0000\n"
+"POT-Creation-Date: 2024-01-29 10:46+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
@@ -298,6 +298,7 @@ msgstr "إضافة صف "
 
 #. module: web_editor
 #. odoo-javascript
+#: code:addons/web_editor/static/src/components/media_dialog/document_selector.js:0
 #: code:addons/web_editor/static/src/components/media_dialog/image_selector.js:0
 #, python-format
 msgid "Add URL"
@@ -337,13 +338,6 @@ msgstr "إضافة رابط "
 #, python-format
 msgid "Add an emoji"
 msgstr "إضافة رمز تعبيري"
-
-#. module: web_editor
-#. odoo-javascript
-#: code:addons/web_editor/static/src/components/media_dialog/document_selector.js:0
-#, python-format
-msgid "Add document"
-msgstr "إضافة مستند "
 
 #. module: web_editor
 #: model_terms:ir.ui.view,arch_db:web_editor.snippet_options_image_optimization_widgets
@@ -887,7 +881,11 @@ msgid "Could not install module %s"
 msgstr "تعذر تثبيت التطبيق %s "
 
 #. module: web_editor
+#. odoo-javascript
+#. module: web_editor
+#: code:addons/web_editor/static/src/components/upload_progress_toast/upload_service.js:0
 #: model_terms:ir.ui.view,arch_db:web_editor.snippet_options_background_options
+#, python-format
 msgid "Cover"
 msgstr "الغلاف "
 
@@ -2373,6 +2371,13 @@ msgid "Primary"
 msgstr "الرئيسي"
 
 #. module: web_editor
+#. odoo-javascript
+#: code:addons/web_editor/static/src/components/upload_progress_toast/upload_progress_toast.xml:0
+#, python-format
+msgid "Progress bar"
+msgstr "شريط التقدم "
+
+#. module: web_editor
 #: model:ir.model.fields.selection,name:web_editor.selection__web_editor_converter_test__selection_str__c
 msgid "Qu'est-ce qu'il fout ce maudit pancake, tabernacle ?"
 msgstr "Qu'est-ce qu'il fout ce maudit pancake, tabernacle ?"
@@ -3617,6 +3622,17 @@ msgid ""
 "You can upload documents with the button located in the top left of the "
 "screen."
 msgstr "بإمكانك رفع المستندات باستخدام الزر الموجود في أعلى يمين الشاشة. "
+
+#. module: web_editor
+#. odoo-python
+#: code:addons/web_editor/controllers/main.py:0
+#, python-format
+msgid ""
+"You have reached the maximum number of requests for this service. Try again "
+"later."
+msgstr ""
+"لقد وصلت إلى الحد الأقصى لعدد الطلبات لهذه الخدمة. يرجى المحاولة مجدداً "
+"لاحقاً. "
 
 #. module: web_editor
 #. odoo-javascript

@@ -44,7 +44,7 @@
                 <sheet string="Project">
                     <div class="oe_button_box" name="button_box" groups="base.group_user">
                         <button class="oe_stat_button" type="object" name="action_view_tasks" icon="fa-tasks">
-                            <field string="Tasks" name="task_count" widget="statinfo"/>
+                            <field string="Tasks" name="open_task_count" widget="statinfo"/>
                         </button>
                         <button class="oe_stat_button" name="project_update_all_action" type="object" groups="project.group_project_user">
                             <field name="last_update_color" invisible="1"/>
@@ -336,7 +336,7 @@
                     </div>
                     <field name="user_id" invisible="1"/>
                     <div class="row o_settings_container"/>
-                    <div name="alias_def" class="mt-4" colspan="2">
+                    <div name="alias_def" class="mt-2" colspan="2">
                         <label for="alias_name" string="Create tasks by sending an email to"/>
                         <span>
                             <field name="alias_name" placeholder="e.g. office-party"/>@

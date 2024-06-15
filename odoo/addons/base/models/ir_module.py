@@ -258,7 +258,7 @@ class Module(models.Model):
                 path = modules.module.get_module_icon_path(module)
             if path:
                 try:
-                    with tools.file_open(path, 'rb') as image_file:
+                    with tools.file_open(path, 'rb', filter_ext=('.png', '.svg', '.gif', '.jpeg', '.jpg')) as image_file:
                         module.icon_image = base64.b64encode(image_file.read())
                 except FileNotFoundError:
                     module.icon_image = ''
@@ -812,9 +812,14 @@ class Module(models.Model):
 
     def _update_category(self, category='Uncategorized'):
         current_category = self.category_id
+        seen = set()
         current_category_path = []
         while current_category:
             current_category_path.insert(0, current_category.name)
+            seen.add(current_category.id)
+            if current_category.parent_id.id in seen:
+                current_category.parent_id = False
+                _logger.warning('category %r ancestry loop has been detected and fixed', current_category)
             current_category = current_category.parent_id
 
         categs = category.split('/')

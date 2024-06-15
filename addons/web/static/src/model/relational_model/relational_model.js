@@ -1,7 +1,7 @@
 /* @odoo-module */
 // @ts-check
 
-import { EventBus, markRaw } from "@odoo/owl";
+import { EventBus, markRaw, toRaw } from "@odoo/owl";
 import { makeContext } from "@web/core/context";
 import { Domain } from "@web/core/domain";
 import { WarningDialog } from "@web/core/errors/error_dialogs";
@@ -61,12 +61,14 @@ import {
  * @property {number} [countLimit]
  * @property {number} [groupsLimit]
  * @property {Object} [groups]
+ * @property {Object} [currentGroups] // FIXME: could be cleaned
  * @property {boolean} [openGroupsByDefault]
  */
 
 /**
  * @typedef Hooks
  * @property {(nextConfiguration: Config) => void} [onWillLoadRoot]
+ * @property {() => Promise} [onRootLoaded]
  * @property {Function} [onWillSaveRecord]
  * @property {Function} [onRecordSaved]
  * @property {Function} [onWillSaveMulti]
@@ -83,6 +85,7 @@ import {
 
 const DEFAULT_HOOKS = {
     onWillLoadRoot: () => {},
+    onRootLoaded: () => {},
     onWillSaveRecord: () => {},
     onRecordSaved: () => {},
     onWillSaveMulti: () => {},
@@ -161,7 +164,7 @@ export class RelationalModel extends Model {
 
     exportState() {
         return {
-            config: this.config,
+            config: toRaw(this.config),
             specialDataCaches: this.specialDataCaches,
         };
     }
@@ -181,9 +184,11 @@ export class RelationalModel extends Model {
      */
     async load(params = {}) {
         const config = this._getNextConfig(this.config, params);
+        this.hooks.onWillLoadRoot(config);
         const data = await this.keepLast.add(this._loadData(config));
         this.root = this._createRoot(config, data);
         this.config = config;
+        return this.hooks.onRootLoaded();
     }
 
     // -------------------------------------------------------------------------
@@ -287,7 +292,13 @@ export class RelationalModel extends Model {
         }
         if (!config.isMonoRecord && this.root) {
             // always reset the offset to 0 when reloading from above
-            config.offset = 0;
+            const resetOffset = (config) => {
+                config.offset = 0;
+                for (const group of Object.values(config.groups || {})) {
+                    resetOffset(group.list);
+                }
+            };
+            resetOffset(config);
             if (!!config.groupBy.length !== !!currentGroupBy.length) {
                 // from grouped to ungrouped or the other way around -> force the limit to be reset
                 delete config.limit;
@@ -302,9 +313,6 @@ export class RelationalModel extends Model {
      * @param {Config} config
      */
     async _loadData(config) {
-        if (config.isRoot) {
-            this.hooks.onWillLoadRoot(config);
-        }
         if (config.isMonoRecord) {
             const evalContext = getBasicEvalContext(config);
             if (!config.resId) {
@@ -475,6 +483,10 @@ export class RelationalModel extends Model {
                 resIds: groupRecordResIds,
             }).then((records) => {
                 for (const group of groups) {
+                    if (!group.value) {
+                        group.values = { id: false };
+                        continue;
+                    }
                     group.values = records.find((r) => group.value && r.id === group.value);
                 }
             });
@@ -490,14 +502,22 @@ export class RelationalModel extends Model {
                 JSON.stringify([config.domain, config.groupBy, config.offset, config.limit])
         ) {
             const currentGroups = config.currentGroups.groups;
-            for (const group of currentGroups) {
+            currentGroups.forEach((group, index) => {
                 if (
                     config.groups[group.value] &&
                     !groups.some((g) => JSON.stringify(g.value) === JSON.stringify(group.value))
                 ) {
-                    groups.push(Object.assign({}, group, { count: 0, length: 0, records: [] }));
+                    const aggregates = Object.assign({}, group.aggregates);
+                    for (const key in aggregates) {
+                        aggregates[key] = 0;
+                    }
+                    groups.splice(
+                        index,
+                        0,
+                        Object.assign({}, group, { count: 0, length: 0, records: [], aggregates })
+                    );
                 }
-            }
+            });
         }
         config.currentGroups = {
             params: JSON.stringify([config.domain, config.groupBy, config.offset, config.limit]),
@@ -626,11 +646,17 @@ export class RelationalModel extends Model {
 
         let data;
         if (reload) {
+            if (tmpConfig.isRoot) {
+                this.hooks.onWillLoadRoot(tmpConfig);
+            }
             data = await this._loadData(tmpConfig);
         }
         Object.assign(config, tmpConfig);
         if (data && commit) {
             commit(data);
+        }
+        if (reload && config.isRoot) {
+            return this.hooks.onRootLoaded();
         }
     }
 
